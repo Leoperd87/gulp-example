@@ -5,79 +5,72 @@
 var gulp = require('gulp');
 
 var less = require('gulp-less');
-var path = require('path');
 var minifyCSS = require('gulp-minify-css');
+var gulpClosureCSSRenamer = require('gulp-closure-css-renamer');
 var del = require('del');
 var soynode = require('gulp-soynode');
-var ts = require('gulp-typescript');
-var merge = require('merge2');
-
-var tsProject = ts.createProject({
-  declarationFiles: true,
-  noExternalResolve: true
-});
-
-var exec = require('child_process').exec,
-  child;
+var closureCompiler = require('gulp-closure-compiler');
 
 gulp.task('clean', function() {
-
   del(['tmp/*', 'target/*'], function(err, deletedFiles) {
     console.log('Files deleted:', deletedFiles.join(', '));
   });
 });
 
 gulp.task('less', function() {
-
-  gulp.src('./src/less/main.less')
+  return gulp.src('./src/less/main.less')
     .pipe(less())
+    .pipe(gulpClosureCSSRenamer({
+      //sourceMap: true,
+      compress: true,
+      renameFile: './tmp/rename.js'
+    }))
     .pipe(minifyCSS())
-    .pipe(gulp.dest('./tmp/'));
+    .pipe(gulp.dest('./target/'));
 });
-
-gulp.task('gss', function() {
-  child = exec(
-    (['java -jar ./resources/closure-stylesheets-20111230.jar',
-      '--output-file ./target/main.css',
-      '--output-renaming-map-format CLOSURE_COMPILED',
-      '--rename CLOSURE',
-      '--output-renaming-map ./tmp/renaming_map.js',
-      '--allow-unrecognized-functions',
-      '--allow-unrecognized-properties',
-      './tmp/main.css']).join(' '),
-    function(error, stdout, stderr) {
-      if (stdout !== null && stdout.length) {
-        console.log('stdout: ' + stdout);
-      }
-      if (stderr !== null && stderr.length) {
-        console.log('stderr: ' + stderr);
-      }
-      if (error !== null) {
-        console.log('exec error: ' + error);
-      }
-    });
-});
-
 
 gulp.task('soy', function() {
-  gulp.src('./src/soy/**/*.soy')
-    .pipe(soynode({
-      eraseTemporaryFiles: true
-    }))
+  var soyCompiler = soynode({
+    eraseTemporaryFiles: true,
+    useClosureStyle: true,
+    loadCompiledTemplates: false,
+    cssHandlingScheme: 'goog'
+  });
+  return gulp.src('./src/soy/**/*.soy')
+    .pipe(soyCompiler)
     .pipe(gulp.dest('./tmp/soy'));
 });
 
-gulp.task('typescript', function() {
-  var tsResult = gulp.src(['./src/ts/**/*.ts', './resources/closure-library.d.ts/**/*.ts'])
-    .pipe(ts(tsProject));
-
-  return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
-    tsResult.dts.pipe(gulp.dest('./resources/definitions')),
-    tsResult.js.pipe(gulp.dest('./tmp/js'))
-  ]);
+gulp.task('closure', ['less', 'soy'], function() {
+  gulp.src([
+    './src/js/**/*.js',
+    './tmp/**/*.js',
+    './bower_components/closure-library/closure/goog/**/*.js',
+    './bower_components/closure-templates/javascript/soyutils_usegoog.js'
+  ])
+    .pipe(closureCompiler({
+      compilerPath: './bower_components/compiler-latest/compiler.jar',
+      fileName: 'main.js',
+      compilerFlags: {
+        closure_entry_point: 'app.main',
+        compilation_level: 'ADVANCED_OPTIMIZATIONS',
+        define: [
+          "goog.DEBUG=false"
+        ],
+        only_closure_dependencies: true,
+        warning_level: 'QUIET'
+      }
+    }))
+    .pipe(gulp.dest('./target'));
 });
+
+gulp.task('copy', function() {
+  gulp.src('./src/static/**/*')
+    .pipe(gulp.dest('./target'));
+});
+
 //gulp.task('watch', ['scripts'], function() {
 //  gulp.watch('lib/*.ts', ['scripts']);
 //});
 
-gulp.task('default', ['clean', 'less', 'gss', 'soy', 'typescript']);
+gulp.task('default', ['copy', 'less', 'soy', 'closure']);

@@ -1,0 +1,85 @@
+
+.map-holder {
+  margin:100px 0 0 0;
+  padding:0;
+  list-style: none;
+}
+
+li {
+  .size(@c_size);
+  .transform(rotate(45deg));
+  margin: -14px 0 0 20px;
+  float: left;
+
+
+  &.man {
+    .object {
+      background: url(./images/icon-man-64.png) center center no-repeat;
+      .size(64px);
+      margin: 0 0px -64px 0;
+      .transform(rotate(-45deg)  translate(0px,-35px));
+      display: block;
+    }
+  }
+
+  .object {
+    display: none;
+  }
+  .wall1 {
+    display:none
+  }
+  .wall2 {
+    display:none
+  }
+
+  &:hover {
+    outline: 1px solid red;
+  }
+
+  &.a0 {
+    background: blue;
+  }
+  &.a1 {
+    background: blue;
+
+    .wall1 {
+      display: block;
+      float:right;
+      background: yellow;
+      .size(@c_size);
+      .transform(skewY(45deg) translate(0, @c_size*-0.5));
+    }
+  }
+  &.a2 {
+    background: blue;
+
+    .wall1 {
+      display: block;
+      float: left;
+      background: green;
+      .size(@c_size);
+      .transform(skewX(45deg) translate(@c_size*-0.5, 0));
+    }
+  }
+  &.a3 {
+    background: blue;
+
+    .wall1 {
+      display: block;
+      float:right;
+      background: yellow;
+      .size(@c_size);
+      .transform(skewY(45deg) translate(0, @c_size*-0.5));
+    }
+
+
+    .wall2 {
+      display: block;
+      float: left;
+      background: green;
+      .size(@c_size);
+      .transform(skewX(45deg) translate(@c_size*0.5, @c_size*-1));
+    }
+  }
+
+}

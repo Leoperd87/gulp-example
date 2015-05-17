@@ -1,8 +1,14 @@
-{namespace azigo.template1}
+{namespace template1}
 
 /**
- * 
+ * @param arrayOfClasses
  */
 {template .main}
-<h1>1</h1>
+{foreach $record in $arrayOfClasses}
+<li class="{$record}">
+    <div class="{css object}"></div>
+    <div class="{css wall1}"></div>
+    <div class="{css wall2}"></div>
+</li>
+{/foreach}
 {/template}

@@ -1,0 +1,220 @@
+
+/* DEG expl.: "45deg"*/
+.rotate(@DEG) {
+  -webkit-transform: rotate(@DEG);
+  -moz-transform: rotate(@DEG);
+  -ms-transform: rotate(@DEG);
+  -o-transform: rotate(@DEG);
+  transform: rotate(@DEG);
+}
+
+.scale(@ARG) {
+  -webkit-transform: scale(@ARG);
+  -moz-transform: scale(@ARG);
+  -ms-transform: scale(@ARG);
+  -o-transform: scale(@ARG);
+  transform: scale(@ARG);
+}
+
+.transform(...) {
+  -moz-transform: @arguments;
+  -ms-transform: @arguments;
+  -webkit-transform: @arguments;
+  -o-transform: @arguments;
+  transform: @arguments;
+}
+
+.shadow(...) {
+  -webkit-box-shadow: @arguments; /* Safari 3.0 */
+  -moz-box-shadow: @arguments; /* Firefox 3.5 */
+  box-shadow: @arguments; /* Other */
+}
+
+.bRadius(...) {
+  -moz-border-radius: @arguments; /* FF 3 */
+  -webkit-border-radius: @arguments; /* Safari 4 Chrome */
+  -o-border-radius: @arguments;
+  border-radius: @arguments; /* Other */
+}
+
+.virtual() {
+  content: '';
+}
+
+.size(@S) {
+  height: @S;
+  width: @S;
+}
+
+.size(@H, @W) {
+  height: @H;
+  width: @W;
+}
+
+.clr() {
+  clear: both;
+}
+
+.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2)); /* Safari 3+ */
+  //  filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{COLOR1}', endColorstr='@{COLOR2}',GradientType=0 )"; /* IE6-9 */
+}
+
+.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3)); /* Safari 3+ */
+}
+
+.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4)); /* Safari 3+ */
+}
+
+.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5)); /* Safari 3+ */
+}
+
+.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @COLOR6, @PERSENT6, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5), color-stop(@PERSENT6,@COLOR6)); /* Safari 3+ */
+}
+
+
+.linerHorizontalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* FF 3.6+ */
+  background: -webkit-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* IE 10 */
+  background: -o-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Opera 11.10+ */
+  background: linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, right top, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4)); /* Safari 3+ */
+}
+
+.linerHorizontalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @COLOR6, @PERSENT6, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* FF 3.6+ */
+  background: -webkit-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* IE 10 */
+  background: -o-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Opera 11.10+ */
+  background: linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, right top, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5), color-stop(@PERSENT6,@COLOR6)); /* Safari 3+ */
+}
+
+.liner45Gradient7(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @COLOR6, @PERSENT6, @COLOR7, @PERSENT7, @ROLLBACK) {
+  background: @ROLLBACK; /* !CSS 3 */
+  background: -moz-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* FF 3.6+ */
+  background: -webkit-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* IE 10 */
+  background: -o-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* Opera 11.10+ */
+  background: linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5), color-stop(@PERSENT6,@COLOR6), color-stop(@PERSENT7,@COLOR7)); /* Safari 3+ */
+}
+
+/**
+ * @param {string} _ top|left|right|bottom
+ * @param {size} size
+ * @param {color} color
+ */
+
+.triangle(top, @size, @color) {
+  height: 0;
+  width: 0;
+  border-top: @size solid @color;
+  border-left: @size solid transparent;
+  border-right: @size solid transparent;
+  border-bottom: @size solid transparent;
+}
+
+.triangle(left, @size, @color) {
+  height: 0;
+  width: 0;
+  border-top: @size solid transparent;
+  border-left: @size solid @color;
+  border-right: @size solid transparent;
+  border-bottom: @size solid transparent;
+}
+
+.triangle(right, @size, @color) {
+  height: 0;
+  width: 0;
+  border-top: @size solid transparent;
+  border-left: @size solid transparent;
+  border-right: @size solid @color;
+  border-bottom: @size solid transparent;
+}
+
+.triangle(bottom, @size, @color) {
+  height: 0;
+  width: 0;
+  border-top: @size solid transparent;
+  border-left: @size solid transparent;
+  border-right: @size solid transparent;
+  border-bottom: @size solid @color;
+}
+
+.transition(...) {
+  -ms-transition: @arguments;
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  -o-transition: @arguments;
+  transition: @arguments;
+}
+
+.backgroundSize(...){
+  -webkit-background-size: @arguments;
+  -moz-background-size: @arguments;
+  -o-background-size: @arguments;
+  background-size: @arguments;
+}
+
+.addAnimation(...) {
+  animation: @arguments;
+  -moz-animation: @arguments; /* Firefox */
+  -webkit-animation: @arguments; /* Safari and Chrome */
+  -o-animation: @arguments; /* Opera */
+}
+
+.keyframes(@name, @frames) {
+  @-webkit-keyframes @name {
+    @frames();
+  }
+  @-moz-keyframes @name {
+    @frames();
+  }
+  @-ms-keyframes @name {
+    @frames();
+  }
+  @-o-keyframes @name {
+    @frames();
+  }
+  @keyframes @name {
+    @frames();
+  }
+}
