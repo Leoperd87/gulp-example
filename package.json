@@ -2,13 +2,15 @@
   "name": "my-project-name",
   "version": "0.0.0",
   "description": "",
-  "devDependencies": {
-    "gulp": "3.8.11",
-    "gulp-less": "~3.0.3",
+  "dependencies": {
     "del": "~1.1.1",
-    "gulp-soynode": "~1.5.0",
+    "gulp": "3.8.11",
     "gulp-closure-compiler": "~0.2.19",
     "gulp-closure-css-renamer": "~0.0.2",
-    "gulp-minify-css": "~1.1.1"
+    "gulp-less": "~3.0.3",
+    "gulp-minify-css": "~1.1.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-soynode": "~1.5.0",
+    "mkdirp": "^0.5.1"
   }
 }
