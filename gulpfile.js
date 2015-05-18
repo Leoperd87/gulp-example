@@ -4,6 +4,7 @@
 
 var gulp = require('gulp');
 
+var mkdirp = require('mkdirp');
 var less = require('gulp-less');
 var minifyCSS = require('gulp-minify-css');
 var gulpClosureCSSRenamer = require('gulp-closure-css-renamer');
@@ -12,7 +13,7 @@ var soynode = require('gulp-soynode');
 var closureCompiler = require('gulp-closure-compiler');
 
 gulp.task('clean', function() {
-  del(['tmp/*', 'target/*'], function(err, deletedFiles) {
+  del(['tmp', 'target'], function(err, deletedFiles) {
     console.log('Files deleted:', deletedFiles.join(', '));
   });
 });
@@ -21,7 +22,6 @@ gulp.task('less', function() {
   return gulp.src('./src/less/main.less')
     .pipe(less())
     .pipe(gulpClosureCSSRenamer({
-      //sourceMap: true,
       compress: true,
       renameFile: './tmp/rename.js'
     }))
@@ -67,6 +67,10 @@ gulp.task('closure', ['less', 'soy'], function() {
 gulp.task('copy', function() {
   gulp.src('./src/static/**/*')
     .pipe(gulp.dest('./target'));
+  mkdirp('./tmp', function(err) {
+  });
+  mkdirp('./target', function(err) {
+  });
 });
 
 //gulp.task('watch', ['scripts'], function() {
