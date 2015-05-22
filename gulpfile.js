@@ -11,6 +11,8 @@ var gulpClosureCSSRenamer = require('gulp-closure-css-renamer');
 var del = require('del');
 var soynode = require('gulp-soynode');
 var closureCompiler = require('gulp-closure-compiler');
+var gulpif = require('gulp-if');
+var sprity = require('sprity');
 
 gulp.task('clean', function() {
   del(['tmp', 'target'], function(err, deletedFiles) {
@@ -18,12 +20,17 @@ gulp.task('clean', function() {
   });
 });
 
-gulp.task('less', function() {
-  return gulp.src('./src/less/main.less')
+gulp.task('copyLess', function() {
+  return gulp.src('./src/less/**/*')
+    .pipe(gulp.dest('./tmp/less'));
+});
+
+gulp.task('less', ['copyLess', 'sprites'], function() {
+  return gulp.src('./tmp/less/main.less')
     .pipe(less())
     .pipe(gulpClosureCSSRenamer({
       compress: true,
-      renameFile: './tmp/rename.js'
+      renameFile: './tmp/js/rename.js'
     }))
     .pipe(minifyCSS())
     .pipe(gulp.dest('./target/'));
@@ -41,10 +48,11 @@ gulp.task('soy', function() {
     .pipe(gulp.dest('./tmp/soy'));
 });
 
-gulp.task('closure', ['less', 'soy'], function() {
+gulp.task('closure', ['sprites', 'less', 'soy'], function() {
   gulp.src([
     './src/js/**/*.js',
-    './tmp/**/*.js',
+    './tmp/js/**/*.js',
+    './tmp/soy/**/*.js',
     './bower_components/closure-library/closure/goog/**/*.js',
     './bower_components/closure-templates/javascript/soyutils_usegoog.js'
   ])
@@ -67,7 +75,7 @@ gulp.task('closure', ['less', 'soy'], function() {
 gulp.task('copy', function() {
   gulp.src('./src/static/**/*')
     .pipe(gulp.dest('./target'));
-  mkdirp('./tmp', function(err) {
+  mkdirp('./tmp/js', function(err) {
   });
   mkdirp('./target', function(err) {
   });
@@ -77,4 +85,21 @@ gulp.task('copy', function() {
 //  gulp.watch('lib/*.ts', ['scripts']);
 //});
 
-gulp.task('default', ['copy', 'less', 'soy', 'closure']);
+gulp.task('sprites', function () {
+  return sprity.src({
+    src: './src/sprites/man/*.png',
+    cssPath: './images/sprites',
+    name: 'man-sprite',
+    template: './src/sprites/sprite.hbs',
+    style: 'man-sprite.less',
+    //processor: 'less',
+    orientation: 'binary-tree',
+    margin: 0,
+    split: true,
+    prefix: 'man-icons'
+    // ... other optional options
+  })
+  .pipe(gulpif('*.png', gulp.dest('./target/images/sprites/'), gulp.dest('./tmp/less/sprites')));
+});
+
+gulp.task('default', ['copy', 'closure']);

@@ -2,6 +2,7 @@ goog.provide('app.main');
 
 goog.require('cssVocabulary');
 goog.require('goog.soy');
+goog.require('goog.array');
 
 goog.require('template1');
 
@@ -16,23 +17,82 @@ var v,
     '2021020',
     '0301010',
     '0002100',
-    '0000300',
-    '0000000',
-    '0000000',
-    '0000000'
+    '0000300'
   ]).join('');
 
+
+var Matrix = function(h, w, map, hpos) {
+  this.realMatrixSize_ = w + Math.floor(h / 2);
+  this.hPos_ = [];
+  this.m_ = new Array(this.realMatrixSize_);
+  for (var i = 0; i < this.realMatrixSize_; i++) {
+    this.m_[i] = (new Array(this.realMatrixSize_ + 1)).join('u').split('');
+  }
+  var mx = 0, my = 0, s = false, rx, ry, curH;
+  for (i = 0; i < h * w; i++) {
+    if (i > 0 && (i % w) == 0) {
+      s = !s;
+      if (s) {
+        my++;
+      } else {
+        mx++;
+      }
+    }
+    var state = map[i];
+    if (!goog.isDefAndNotNull(state)) {
+      state = '0';
+    }
+    rx = mx + w - 1 - (i % w);
+    ry = my + (i % w);
+    this.m_[rx][ry] = state;
+    curH = goog.array.find(hpos, function(r) {
+      return r.pos == i;
+    });
+    if (goog.isDefAndNotNull(curH)) {
+      this.hPos_.push({
+        direction: curH.direction,
+        x: rx,
+        y: ry
+      })
+    }
+  }
+};
+Matrix.prototype = {
+  toString: function() {
+    var r = [];
+    goog.array.forEach(this.m_, function(el) {
+      r.push(el.join(''));
+    });
+    return r.join('\n');
+  }
+};
+
+
+
 var hPos = [
-  {x: 2, y: 2}
+  {
+    x: 2,
+    y: 2,
+    direction: 7
+  }
 ];
 
 var hip = Math.sqrt(Math.pow(size, 2) + Math.pow(size, 2));
 var calcHPos = [];
 var selectedH = undefined;
 
+var hPosAsStringPos = []
+
 for (var i = 0; i < hPos.length; i++) {
+  hPosAsStringPos.push({
+    pos: hPos[i].x * lineLength + hPos[i].y,
+    direction: hPos[i].direction
+  });
   calcHPos.push(hPos[i].x * lineLength + hPos[i].y);
 }
+
+var myMatrix = new Matrix(rowCound, lineLength, mapAsString, hPosAsStringPos);
+console.log(myMatrix.toString());
 
 v = ([
   '.' + goog.getCssName('map-holder') + '{',
@@ -69,17 +129,40 @@ for (i = 0; i < lineLength * rowCound; i++) {
     }
   }
 
-  arrayOfClasses.push(className + (calcHPos.indexOf(i) > -1 ? ' '+goog.getCssName('man') : ''));
+  var currentArrayOfClasses = [className];
+  if (calcHPos.indexOf(i) > -1) {
+    currentArrayOfClasses.push(goog.getCssName('man'));
+    switch(hPos[calcHPos.indexOf(i)].direction) {
+      case 1:
+        currentArrayOfClasses.push(goog.getCssName('angle-1'));
+        break;
+      case 2:
+        currentArrayOfClasses.push(goog.getCssName('angle-2'));
+        break;
+      case 3:
+        currentArrayOfClasses.push(goog.getCssName('angle-3'));
+        break;
+      case 4:
+        currentArrayOfClasses.push(goog.getCssName('angle-4'));
+        break;
+      case 5:
+        currentArrayOfClasses.push(goog.getCssName('angle-5'));
+        break;
+      case 6:
+        currentArrayOfClasses.push(goog.getCssName('angle-6'));
+        break;
+      case 7:
+        currentArrayOfClasses.push(goog.getCssName('angle-7'));
+        break;
+      case 8:
+        currentArrayOfClasses.push(goog.getCssName('angle-8'));
+        break;
+    }
+  }
+  arrayOfClasses.push(
+    currentArrayOfClasses.join(' ')
+  );
 
-  //h += ([
-  //    '<li class="',
-  //    className,
-  //    (calcHPos.indexOf(i) > -1 ? ' '+goog.getCssName('man') : ''),
-  //    '">',
-  //    '<div class="'+goog.getCssName('object')+'"></div>',
-  //    '<div class="'+goog.getCssName('wall1')+'"></div>',
-  //    '<div class="'+goog.getCssName('wall2')+'"></div>',
-  //    '</li>']).join('');
   selectedH = (calcHPos.indexOf(i) > -1 ? calcHPos.indexOf(i) : selectedH);
 }
 var holder = goog.dom.createDom('ul', goog.getCssName('map-holder'));

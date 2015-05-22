@@ -1,7 +1,7 @@
 
 .map-holder {
-  margin:100px 0 0 0;
-  padding:0;
+  margin: 100px 0 0 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -11,14 +11,60 @@ li {
   margin: -14px 0 0 20px;
   float: left;
 
-
   &.man {
     .object {
-      background: url(./images/icon-man-64.png) center center no-repeat;
       .size(64px);
       margin: 0 0px -64px 0;
-      .transform(rotate(-45deg)  translate(0px,-35px));
-      display: block;
+      .transform(rotate(-45deg) translate(0px, -35px));
+    }
+
+    &.angle-1 {
+      .object {
+        .sprite(@icon-man-64-1);
+        .man-icons-man;
+      }
+    }
+    &.angle-2 {
+      .object {
+        .sprite(@icon-man-64-2);
+        .man-icons-man;
+      }
+    }
+    &.angle-3 {
+      .object {
+        .sprite(@icon-man-64-3);
+        .man-icons-man;
+      }
+    }
+    &.angle-4 {
+      .object {
+        .sprite(@icon-man-64-4);
+        .man-icons-man;
+      }
+    }
+    &.angle-5 {
+      .object {
+        .sprite(@icon-man-64-5);
+        .man-icons-man;
+      }
+    }
+    &.angle-6 {
+      .object {
+        .sprite(@icon-man-64-6);
+        .man-icons-man;
+      }
+    }
+    &.angle-7 {
+      .object {
+        .sprite(@icon-man-64-7);
+        .man-icons-man;
+      }
+    }
+    &.angle-8 {
+      .object {
+        .sprite(@icon-man-64-8);
+        .man-icons-man;
+      }
     }
   }
 
@@ -26,10 +72,10 @@ li {
     display: none;
   }
   .wall1 {
-    display:none
+    display: none
   }
   .wall2 {
-    display:none
+    display: none
   }
 
   &:hover {
@@ -44,7 +90,7 @@ li {
 
     .wall1 {
       display: block;
-      float:right;
+      float: right;
       background: yellow;
       .size(@c_size);
       .transform(skewY(45deg) translate(0, @c_size*-0.5));
@@ -66,12 +112,11 @@ li {
 
     .wall1 {
       display: block;
-      float:right;
+      float: right;
       background: yellow;
       .size(@c_size);
       .transform(skewY(45deg) translate(0, @c_size*-0.5));
     }
-
 
     .wall2 {
       display: block;
