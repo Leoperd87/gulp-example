@@ -6,6 +6,8 @@ goog.require('goog.array');
 
 goog.require('template1');
 
+goog.require('app.pathFinder.SolFinder');
+
 var v,
   lineLength = 7,
   rowCound = 10,
@@ -33,17 +35,17 @@ var Matrix = function(h, w, map, hpos) {
     if (i > 0 && (i % w) == 0) {
       s = !s;
       if (s) {
-        my++;
-      } else {
         mx++;
+      } else {
+        my++;
       }
     }
     var state = map[i];
     if (!goog.isDefAndNotNull(state)) {
       state = '0';
     }
-    rx = mx + w - 1 - (i % w);
-    ry = my + (i % w);
+    ry = my + w - 1 - (i % w);
+    rx = mx + (i % w);
     this.m_[rx][ry] = state;
     curH = goog.array.find(hpos, function(r) {
       return r.pos == i;
@@ -64,6 +66,12 @@ Matrix.prototype = {
       r.push(el.join(''));
     });
     return r.join('\n');
+  },
+  toArray: function() {
+    return this.m_;
+  },
+  getHPos: function(i) {
+    return this.hPos_[i];
   }
 };
 
@@ -81,7 +89,7 @@ var hip = Math.sqrt(Math.pow(size, 2) + Math.pow(size, 2));
 var calcHPos = [];
 var selectedH = undefined;
 
-var hPosAsStringPos = []
+var hPosAsStringPos = [];
 
 for (var i = 0; i < hPos.length; i++) {
   hPosAsStringPos.push({
@@ -170,3 +178,17 @@ var holder = goog.dom.createDom('ul', goog.getCssName('map-holder'));
 goog.dom.appendChild(document.body, holder);
 
 goog.soy.renderElement(holder, template1.main, {arrayOfClasses: arrayOfClasses});
+
+var calc = new SolFinder(myMatrix.toArray());
+var tempHPoz = myMatrix.getHPos(0);
+var fromPoz = new Poz(tempHPoz.x, tempHPoz.y, tempHPoz.direction);
+var toPoz = new Poz(4, 8, 3);
+calc
+  .setFrom(fromPoz)
+  .setTo(toPoz)
+  .findPath();
+
+if (calc.didGotWay()) {
+  console.log(calc.printSolutionAsCommands().getBetterSolutionAsBinary());
+}
+
