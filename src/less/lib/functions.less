@@ -201,6 +201,16 @@
   -o-animation: @arguments; /* Opera */
 }
 
+// @test-frames: {
+// 0% { background: red; }
+// 100% { background: grey; }
+// };
+// .keyframes(test, @test-frames);
+//
+// .test-animation {
+//   .addAnimation(test 5s ease);
+// }
+
 .keyframes(@name, @frames) {
   @-webkit-keyframes @name {
     @frames();
