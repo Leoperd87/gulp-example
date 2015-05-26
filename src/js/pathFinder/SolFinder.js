@@ -12,6 +12,9 @@ goog.require('app.pathFinder.Solution');
 goog.require('app.pathFinder.TimeConsts');
 goog.require('app.pathFinder.TransformVocabulary');
 
+goog.require('goog.dom.classlist');
+goog.require('goog.Timer');
+
 var SolFinder = function(map) {
   this.map_ = map;
 };
@@ -29,7 +32,8 @@ SolFinder.prototype = {
     return {
       vertical: m[0] == '1',
       horizontal: m[1] == '1',
-      both: m[0] == '1' && m[1] == '1'
+      both: m[0] == '1' && m[1] == '1',
+      any: m[0] == '1' || m[1] == '1'
     }
   },
   findPath: function() {
@@ -100,7 +104,7 @@ SolFinder.prototype = {
         switch (lastMove.d) {
           case 1:
             didCan = (
-            (!frontMapState.both) &&
+            (!frontMapState.any) &&
             (!frontLeftMapState.vertical) &&
             (!frontRightMapState.horizontal)
             );
@@ -113,7 +117,7 @@ SolFinder.prototype = {
           case 3:
             didCan = (
             (!frontMapState.horizontal) &&
-            (!frontLeftMapState.both) &&
+            (!frontLeftMapState.any) &&
             (!currentMapSate.vertical)
             );
             break;
@@ -124,7 +128,7 @@ SolFinder.prototype = {
             break;
           case 5:
             didCan = (
-            (!currentMapSate.both) &&
+            (!currentMapSate.any) &&
             (!frontLeftMapState.horizontal) &&
             (!frontRightMapState.vertical)
             );
@@ -136,7 +140,7 @@ SolFinder.prototype = {
             break;
           case 7:
             didCan = (
-            (!frontRightMapState.both) &&
+            (!frontRightMapState.any) &&
             (!frontMapState.vertical) &&
             (!currentMapSate.horizontal)
             );
@@ -170,47 +174,27 @@ SolFinder.prototype = {
   getBetterSolutionAsBinary: function() {
     return this.betterWay_.getSolutionAsBinary();
   },
-  transformSolutionBinaryToKeyFrame: function(solAsBin) {
-    var r = '';
-
-    goog.array.forEach(solAsBin, function(record) {
-      switch (record.transform) {
-        case TransformVocabulary.to1:
-          break;
-        case TransformVocabulary.to2:
-          break;
-        case TransformVocabulary.to3:
-          break;
-        case TransformVocabulary.to4:
-          break;
-        case TransformVocabulary.to5:
-          break;
-        case TransformVocabulary.to6:
-          break;
-        case TransformVocabulary.to7:
-          break;
-        case TransformVocabulary.to8:
-          break;
-        case TransformVocabulary.toLeft:
-          break;
-        case TransformVocabulary.fromLeft:
-          break;
-        case TransformVocabulary.toLeftTop:
-          break;
-        case TransformVocabulary.fromLeftTop:
-          break;
-        case TransformVocabulary.toTop:
-          break;
-        case TransformVocabulary.fromTop:
-          break;
-        case TransformVocabulary.toRightTop:
-          break;
-        case TransformVocabulary.fromRightTop:
-          break;
+  runBinarySolution: function(solAsBin) {
+    goog.dom.classlist.remove(
+      lis[coordTransformMap.D2ToD1[this.from_.x][this.from_.y]],
+      CssRotateAngleConst[this.from_.d]);
+    this.vizualizationIteration_(solAsBin);
+  },
+  vizualizationIteration_: function(sol) {
+    var step = sol.shift();
+    var el = lis[coordTransformMap.D2ToD1[step.x][step.y]];
+    goog.dom.classlist.add(el, goog.getCssName('man'));
+    goog.dom.classlist.add(el, step.transform);
+    goog.Timer.callOnce(function() {
+      goog.dom.classlist.remove(el, step.transform);
+      goog.dom.classlist.remove(el, goog.getCssName('man'));
+      if (sol.length) {
+        this.vizualizationIteration_(sol);
+      } else {
+        var finalEl = lis[coordTransformMap.D2ToD1[this.to_.x][this.to_.y]];
+        goog.dom.classlist.add(finalEl, goog.getCssName('man'));
+        goog.dom.classlist.add(finalEl, CssRotateAngleConst[step.d]);
       }
-    }, this);
-
-
-    return r;
+    }, step.opTime * 1000, this);
   }
 };

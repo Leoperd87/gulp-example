@@ -71,7 +71,9 @@ Solution.prototype = {
       if (prev.d == this.pull_[i].d) {
         currenTime += moveTime;
         t = {
-          timeAsPercent: currenTime/fullTime*100
+          timeAsPercent: currenTime/fullTime*100,
+          opTime: moveTime,
+          d: this.pull_[i].d
         };
         switch(this.pull_[i].d) {
           case 1:
@@ -120,32 +122,42 @@ Solution.prototype = {
         t = {
           x: this.pull_[i].x,
           y: this.pull_[i].y,
-          timeAsPercent: currenTime/fullTime*100
+          timeAsPercent: currenTime/fullTime*100,
+          opTime: rotateTime,
+          d: this.pull_[i].d
         };
         switch(this.pull_[i].d) {
           case 1:
-            t.transform = TransformVocabulary.to1;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r81 : TransformVocabulary.r21);
             break;
           case 2:
-            t.transform = TransformVocabulary.to2;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r12 : TransformVocabulary.r32);
             break;
           case 3:
-            t.transform = TransformVocabulary.to3;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r23 : TransformVocabulary.r43);
             break;
           case 4:
-            t.transform = TransformVocabulary.to4;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r34 : TransformVocabulary.r54);
             break;
           case 5:
-            t.transform = TransformVocabulary.to5;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r45 : TransformVocabulary.r65);
             break;
           case 6:
-            t.transform = TransformVocabulary.to6;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r56 : TransformVocabulary.r76);
             break;
           case 7:
-            t.transform = TransformVocabulary.to7;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r67 : TransformVocabulary.r87);
             break;
           case 8:
-            t.transform = TransformVocabulary.to8;
+            t.transform =
+              (prev.calcRightD().d == this.pull_[i].d ? TransformVocabulary.r78 : TransformVocabulary.r18);
             break;
         }
       }

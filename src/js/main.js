@@ -3,6 +3,9 @@ goog.provide('app.main');
 goog.require('cssVocabulary');
 goog.require('goog.soy');
 goog.require('goog.array');
+goog.require('goog.events');
+goog.require('goog.events.EventType');
+goog.require('app.pathFinder.CssRotateAngleConst');
 
 goog.require('template1');
 
@@ -22,13 +25,20 @@ var v,
     '0000300'
   ]).join('');
 
+var coordTransformMap = {
+  D1ToD2 : [],
+  D2ToD1 : undefined
+};
+
 
 var Matrix = function(h, w, map, hpos) {
   this.realMatrixSize_ = w + Math.floor(h / 2);
   this.hPos_ = [];
   this.m_ = new Array(this.realMatrixSize_);
+  coordTransformMap.D2ToD1 = new Array(this.realMatrixSize_);
   for (var i = 0; i < this.realMatrixSize_; i++) {
     this.m_[i] = (new Array(this.realMatrixSize_ + 1)).join('u').split('');
+    coordTransformMap.D2ToD1[i] = (new Array(this.realMatrixSize_ + 1)).join('u').split('');
   }
   var mx = 0, my = 0, s = false, rx, ry, curH;
   for (i = 0; i < h * w; i++) {
@@ -47,6 +57,11 @@ var Matrix = function(h, w, map, hpos) {
     ry = my + w - 1 - (i % w);
     rx = mx + (i % w);
     this.m_[rx][ry] = state;
+    coordTransformMap.D1ToD2.push({
+      x: rx,
+      y: ry
+    });
+    coordTransformMap.D2ToD1[rx][ry] = i;
     curH = goog.array.find(hpos, function(r) {
       return r.pos == i;
     });
@@ -100,7 +115,7 @@ for (var i = 0; i < hPos.length; i++) {
 }
 
 var myMatrix = new Matrix(rowCound, lineLength, mapAsString, hPosAsStringPos);
-console.log(myMatrix.toString());
+//console.log(myMatrix.toString());
 
 v = ([
   '.' + goog.getCssName('map-holder') + '{',
@@ -140,32 +155,7 @@ for (i = 0; i < lineLength * rowCound; i++) {
   var currentArrayOfClasses = [className];
   if (calcHPos.indexOf(i) > -1) {
     currentArrayOfClasses.push(goog.getCssName('man'));
-    switch(hPos[calcHPos.indexOf(i)].direction) {
-      case 1:
-        currentArrayOfClasses.push(goog.getCssName('angle-1'));
-        break;
-      case 2:
-        currentArrayOfClasses.push(goog.getCssName('angle-2'));
-        break;
-      case 3:
-        currentArrayOfClasses.push(goog.getCssName('angle-3'));
-        break;
-      case 4:
-        currentArrayOfClasses.push(goog.getCssName('angle-4'));
-        break;
-      case 5:
-        currentArrayOfClasses.push(goog.getCssName('angle-5'));
-        break;
-      case 6:
-        currentArrayOfClasses.push(goog.getCssName('angle-6'));
-        break;
-      case 7:
-        currentArrayOfClasses.push(goog.getCssName('angle-7'));
-        break;
-      case 8:
-        currentArrayOfClasses.push(goog.getCssName('angle-8'));
-        break;
-    }
+    currentArrayOfClasses.push(CssRotateAngleConst[hPos[calcHPos.indexOf(i)].direction]);
   }
   arrayOfClasses.push(
     currentArrayOfClasses.join(' ')
@@ -179,16 +169,27 @@ goog.dom.appendChild(document.body, holder);
 
 goog.soy.renderElement(holder, template1.main, {arrayOfClasses: arrayOfClasses});
 
+var lis = goog.dom.getElementsByTagNameAndClass('li', undefined, holder);
+
 var calc = new SolFinder(myMatrix.toArray());
-var tempHPoz = myMatrix.getHPos(0);
-var fromPoz = new Poz(tempHPoz.x, tempHPoz.y, tempHPoz.direction);
-var toPoz = new Poz(6, 6, 3);
-calc
-  .setFrom(fromPoz)
-  .setTo(toPoz)
-  .findPath();
 
-if (calc.didGotWay()) {
-  console.log(calc.printSolutionAsCommands().getBetterSolutionAsBinary());
-}
+goog.events.listen(holder, goog.events.EventType.CLICK, function(event) {
+  var el = event.target;
+  while (el['tagName'].toLowerCase() != 'li') {
+    el = goog.dom.getParentElement(el);
+  }
+  var D1Index = goog.array.findIndex(lis, function(r) {
+    return r == el;
+  });
+  var tempHPoz = myMatrix.getHPos(0);
+  var fromPoz = new Poz(tempHPoz.x, tempHPoz.y, tempHPoz.direction);
+  var toPoz = new Poz(coordTransformMap.D1ToD2[D1Index].x, coordTransformMap.D1ToD2[D1Index].y, 3);
+  calc
+    .setFrom(fromPoz)
+    .setTo(toPoz)
+    .findPath();
 
+  if (calc.didGotWay()) {
+    calc.runBinarySolution(calc.printSolutionAsCommands().getBetterSolutionAsBinary());
+  }
+});

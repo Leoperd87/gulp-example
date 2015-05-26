@@ -19,6 +19,14 @@ MoveMap.prototype = {
     return this;
   },
   get: function(p) {
+    if (
+      (p.x == -1) ||
+      (p.x == this.map_.length) ||
+      (p.y == -1) ||
+      (p.y == this.map_[0].length)
+    ) {
+      return 0;
+    }
     return (
       goog.isDefAndNotNull(this.map_[p.x][p.y]) &&
       goog.isDefAndNotNull(this.map_[p.x][p.y][p.d]) ?
