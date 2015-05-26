@@ -182,7 +182,7 @@ goog.soy.renderElement(holder, template1.main, {arrayOfClasses: arrayOfClasses})
 var calc = new SolFinder(myMatrix.toArray());
 var tempHPoz = myMatrix.getHPos(0);
 var fromPoz = new Poz(tempHPoz.x, tempHPoz.y, tempHPoz.direction);
-var toPoz = new Poz(4, 8, 3);
+var toPoz = new Poz(6, 6, 3);
 calc
   .setFrom(fromPoz)
   .setTo(toPoz)

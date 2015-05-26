@@ -23,6 +23,6 @@ MoveMap.prototype = {
       goog.isDefAndNotNull(this.map_[p.x][p.y]) &&
       goog.isDefAndNotNull(this.map_[p.x][p.y][p.d]) ?
         this.map_[p.x][p.y][p.d] :
-        Number.MAX_SAFE_INTEGER);
+        Number['MAX_SAFE_INTEGER']);
   }
 };
