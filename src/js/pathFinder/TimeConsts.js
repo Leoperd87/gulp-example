@@ -4,5 +4,5 @@
 
 goog.provide('app.pathFinder.TimeConsts');
 
-var rotateTime = 1,
-  moveTime = 2;
+var rotateTime = 0.3,
+  moveTime = 0.5;

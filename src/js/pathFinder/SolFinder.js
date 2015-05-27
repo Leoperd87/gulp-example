@@ -13,10 +13,13 @@ goog.require('app.pathFinder.TimeConsts');
 goog.require('app.pathFinder.TransformVocabulary');
 
 goog.require('goog.dom.classlist');
+goog.require('goog.async.Deferred');
 goog.require('goog.Timer');
 
 var SolFinder = function(map) {
   this.map_ = map;
+  this.runDef_ = new goog.async.Deferred();
+  this.runDef_.callback({});
 };
 SolFinder.prototype = {
   setFrom: function(p) {
@@ -51,6 +54,7 @@ SolFinder.prototype = {
       currentMapSate,
       didCan,
       newTimeWithRotate;
+    console.time('calc time');
     while (this.solutionsPull_.length) {
       currentSol = this.solutionsPull_.shift();
       lastMove = currentSol.getLast();
@@ -104,9 +108,9 @@ SolFinder.prototype = {
         switch (lastMove.d) {
           case 1:
             didCan = (
-            (!frontMapState.any) &&
-            (!frontLeftMapState.vertical) &&
-            (!frontRightMapState.horizontal)
+              (!frontMapState.any) &&
+              (!frontLeftMapState.vertical) &&
+              (!frontRightMapState.horizontal)
             );
             break;
           case 2:
@@ -116,9 +120,9 @@ SolFinder.prototype = {
             break;
           case 3:
             didCan = (
-            (!frontMapState.horizontal) &&
-            (!frontLeftMapState.any) &&
-            (!currentMapSate.vertical)
+              (!frontMapState.horizontal) &&
+              (!frontLeftMapState.any) &&
+              (!currentMapSate.vertical)
             );
             break;
           case 4:
@@ -128,9 +132,9 @@ SolFinder.prototype = {
             break;
           case 5:
             didCan = (
-            (!currentMapSate.any) &&
-            (!frontLeftMapState.horizontal) &&
-            (!frontRightMapState.vertical)
+              (!currentMapSate.any) &&
+              (!frontLeftMapState.horizontal) &&
+              (!frontRightMapState.vertical)
             );
             break;
           case 6:
@@ -140,9 +144,9 @@ SolFinder.prototype = {
             break;
           case 7:
             didCan = (
-            (!frontRightMapState.any) &&
-            (!frontMapState.vertical) &&
-            (!currentMapSate.horizontal)
+              (!frontRightMapState.any) &&
+              (!frontMapState.vertical) &&
+              (!currentMapSate.horizontal)
             );
             break;
           case 8:
@@ -157,6 +161,7 @@ SolFinder.prototype = {
         }
       }
     }
+    console.timeEnd('calc time');
     return this;
   },
   printSolutionAsCommands: function() {
@@ -175,26 +180,35 @@ SolFinder.prototype = {
     return this.betterWay_.getSolutionAsBinary();
   },
   runBinarySolution: function(solAsBin) {
+    this.runDef_ = new goog.async.Deferred();
     goog.dom.classlist.remove(
       lis[coordTransformMap.D2ToD1[this.from_.x][this.from_.y]],
       CssRotateAngleConst[this.from_.d]);
     this.vizualizationIteration_(solAsBin);
   },
   vizualizationIteration_: function(sol) {
-    var step = sol.shift();
-    var el = lis[coordTransformMap.D2ToD1[step.x][step.y]];
-    goog.dom.classlist.add(el, goog.getCssName('man'));
-    goog.dom.classlist.add(el, step.transform);
-    goog.Timer.callOnce(function() {
-      goog.dom.classlist.remove(el, step.transform);
-      goog.dom.classlist.remove(el, goog.getCssName('man'));
-      if (sol.length) {
-        this.vizualizationIteration_(sol);
-      } else {
-        var finalEl = lis[coordTransformMap.D2ToD1[this.to_.x][this.to_.y]];
-        goog.dom.classlist.add(finalEl, goog.getCssName('man'));
-        goog.dom.classlist.add(finalEl, CssRotateAngleConst[step.d]);
-      }
-    }, step.opTime * 1000, this);
+      var step = sol.shift();
+      var el = lis[coordTransformMap.D2ToD1[step.x][step.y]];
+      goog.dom.classlist.add(el, goog.getCssName('man'));
+      goog.dom.classlist.add(el, step.transform);
+      goog.Timer.callOnce(function() {
+        goog.dom.classlist.remove(el, step.transform);
+        goog.dom.classlist.remove(el, goog.getCssName('man'));
+        if (sol.length) {
+          this.vizualizationIteration_(sol);
+        } else {
+          this.to_.d = step.d;
+          var finalEl = lis[coordTransformMap.D2ToD1[this.to_.x][this.to_.y]];
+          goog.dom.classlist.add(finalEl, goog.getCssName('man'));
+          goog.dom.classlist.add(finalEl, CssRotateAngleConst[step.d]);
+          this.runDef_.callback({});
+        }
+      }, step.opTime * 1000, this);
+    },
+  getStopRunDef: function() {
+    return this.runDef_;
+  },
+  getTo: function() {
+    return (goog.isDefAndNotNull(this.to_) ? this.to_ : this.from_).clone();
   }
 };

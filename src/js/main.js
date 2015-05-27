@@ -26,8 +26,8 @@ var v,
   ]).join('');
 
 var coordTransformMap = {
-  D1ToD2 : [],
-  D2ToD1 : undefined
+  D1ToD2: [],
+  D2ToD1: undefined
 };
 
 
@@ -171,25 +171,29 @@ goog.soy.renderElement(holder, template1.main, {arrayOfClasses: arrayOfClasses})
 
 var lis = goog.dom.getElementsByTagNameAndClass('li', undefined, holder);
 
+var tempHPoz = myMatrix.getHPos(0);
+var fromPoz = new Poz(tempHPoz.x, tempHPoz.y, tempHPoz.direction);
 var calc = new SolFinder(myMatrix.toArray());
+calc
+  .setFrom(fromPoz);
 
 goog.events.listen(holder, goog.events.EventType.CLICK, function(event) {
-  var el = event.target;
-  while (el['tagName'].toLowerCase() != 'li') {
-    el = goog.dom.getParentElement(el);
-  }
-  var D1Index = goog.array.findIndex(lis, function(r) {
-    return r == el;
-  });
-  var tempHPoz = myMatrix.getHPos(0);
-  var fromPoz = new Poz(tempHPoz.x, tempHPoz.y, tempHPoz.direction);
-  var toPoz = new Poz(coordTransformMap.D1ToD2[D1Index].x, coordTransformMap.D1ToD2[D1Index].y, 3);
-  calc
-    .setFrom(fromPoz)
-    .setTo(toPoz)
-    .findPath();
+  calc.getStopRunDef().addCallback(function() {
+    var el = event.target;
+    while (el['tagName'].toLowerCase() != 'li') {
+      el = goog.dom.getParentElement(el);
+    }
+    var D1Index = goog.array.findIndex(lis, function(r) {
+      return r == el;
+    });
+    var toPoz = new Poz(coordTransformMap.D1ToD2[D1Index].x, coordTransformMap.D1ToD2[D1Index].y, 3);
+    calc
+      .setFrom(calc.getTo())
+      .setTo(toPoz)
+      .findPath();
 
-  if (calc.didGotWay()) {
-    calc.runBinarySolution(calc.printSolutionAsCommands().getBetterSolutionAsBinary());
-  }
+    if (calc.didGotWay()) {
+      calc.runBinarySolution(calc.printSolutionAsCommands().getBetterSolutionAsBinary());
+    }
+  });
 });
