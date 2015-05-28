@@ -40,10 +40,15 @@ SolFinder.prototype = {
     }
   },
   findPath: function() {
+    this.betterWay_ = undefined;
+
+    if (this.to_.compairByCoord(this.from_)) {
+      return this;
+    }
+
     this.solutionsPull_ = [(new Solution(this.from_))];
     this.moveMap_ = new MoveMap(this.map_.length, this.map_[0].length);
     this.moveMap_.set(this.from_, 0);
-    this.betterWay_ = undefined;
 
     var currentSol,
       lastMove,
@@ -101,10 +106,10 @@ SolFinder.prototype = {
       // to front
       newMove = lastMove.clone(lastMove.d);
       if (this.map_[lastMove.x][lastMove.y] !== 'u' && this.moveMap_.get(newMove) > currentSol.getTime() + moveTime) {
-        currentMapSate = this.convertMapToWalls(this.map_[lastMove.x][lastMove.y]);
-        frontMapState = this.convertMapToWalls(this.map_[lastMove.x + moveKeys[lastMove.d].x][lastMove.y + moveKeys[lastMove.d].y]);
-        frontLeftMapState = this.convertMapToWalls(this.map_[lastMove.x + moveKeys[lastMove.calcLeftD()].x][lastMove.y + moveKeys[lastMove.calcLeftD()].y]);
-        frontRightMapState = this.convertMapToWalls(this.map_[lastMove.x + moveKeys[lastMove.calcRightD()].x][lastMove.y + moveKeys[lastMove.calcRightD()].y]);
+        currentMapSate = this.convertMapToWalls(this.getLocalMap_(lastMove.x, lastMove.y));
+        frontMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + moveKeys[lastMove.d].x, lastMove.y + moveKeys[lastMove.d].y));
+        frontLeftMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + moveKeys[lastMove.calcLeftD()].x, lastMove.y + moveKeys[lastMove.calcLeftD()].y));
+        frontRightMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + moveKeys[lastMove.calcRightD()].x, lastMove.y + moveKeys[lastMove.calcRightD()].y));
         switch (lastMove.d) {
           case 1:
             didCan = (
@@ -162,7 +167,20 @@ SolFinder.prototype = {
       }
     }
     console.timeEnd('calc time');
+    if (!goog.isDefAndNotNull(this.betterWay_)) {
+      this.to_ = this.from_.clone();
+    }
     return this;
+  },
+  getLocalMap_: function(x, y) {
+    var r = 0;
+    if (
+      goog.isDefAndNotNull(this.map_[x]) &&
+      goog.isDefAndNotNull(this.map_[x][y])
+    ) {
+      r = this.map_[x][y];
+    }
+    return r;
   },
   printSolutionAsCommands: function() {
     if (goog.isDefAndNotNull(this.betterWay_)) {
