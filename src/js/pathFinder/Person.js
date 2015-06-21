@@ -114,6 +114,10 @@ app.pathFinder.Person.prototype.calculateVisibility = function() {
   var isDistanceInfinity = visibilityDistance == -1;
   for (var i = 0; i < this.m_.getTilesCount(); i++) {
     var tile = this.m_.getTileByCoord(i);
+    if (this.x == tile.getD2Coord().x && this.y == tile.getD2Coord().y) {
+      tile.setVisibility(true);
+      continue;
+    }
     if (
       isDistanceInfinity ||
       (

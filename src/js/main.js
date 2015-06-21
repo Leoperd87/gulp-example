@@ -32,6 +32,11 @@ var lineLength = 7,
       x: 3,
       y: 5,
       direction: 7
+    },
+    {
+      x: 7,
+      y: 0,
+      direction: 4
     }
   ],
   visibilityAngle = 60, // that mean +-60
@@ -41,22 +46,24 @@ app.pathFinder.CoordTransformMatrix.getInstance().init(rowCound, lineLength, map
 app.pathFinder.Team.getInstance().init(hPos);
 app.pathFinder.UIMap.getInstance().initMap(size);
 app.pathFinder.Team.getInstance().calculateVisibility();
-
-var tempHPoz = app.pathFinder.Team.getInstance().getSelected();
-var fromPoz = new app.pathFinder.Poz(tempHPoz.x, tempHPoz.y, tempHPoz.d);
 var calc = new app.pathFinder.SolFinder(app.pathFinder.CoordTransformMatrix.getInstance().toArray());
-calc
-  .setFrom(fromPoz);
 
 app.pathFinder.UIMap.getInstance().setClickFunction(function(coord) {
   calc.getStopRunDef().addCallback(function() {
+    var memberIndex = app.pathFinder.Team.getInstance().findMemberIndexByPosition(coord);
+    if (memberIndex > -1) {
+      app.pathFinder.Team.getInstance().setSelected(memberIndex);
+      return;
+    }
+
+    calc.setFrom(app.pathFinder.Team.getInstance().getSelected());
+
     var toPoz = new app.pathFinder.Poz(
       coord.x,
       coord.y,
       3
     );
     calc
-      .setFrom(calc.getTo())
       .setTo(toPoz)
       .findPath();
 

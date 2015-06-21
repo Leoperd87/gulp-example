@@ -18,13 +18,20 @@ app.pathFinder.MoveMap = function(x, y) {
 /**
  * @param {app.pathFinder.Poz} p
  * @param {number} v
+ * @param {=boolean} forAllDirection
  * @returns {app.pathFinder.MoveMap}
  */
-app.pathFinder.MoveMap.prototype.set = function(p, v) {
+app.pathFinder.MoveMap.prototype.set = function(p, v, forAllDirection) {
   if (!goog.isDefAndNotNull(this.map_[p.x][p.y])) {
     this.map_[p.x][p.y] = {};
   }
-  this.map_[p.x][p.y][p.d] = v;
+  if (forAllDirection) {
+    for (var i = 1; i < 9; i++) {
+      this.map_[p.x][p.y][i] = v;
+    }
+  } else {
+    this.map_[p.x][p.y][p.d] = v;
+  }
   return this;
 };
 /**
@@ -44,5 +51,5 @@ app.pathFinder.MoveMap.prototype.get = function(p) {
     goog.isDefAndNotNull(this.map_[p.x][p.y]) &&
     goog.isDefAndNotNull(this.map_[p.x][p.y][p.d]) ?
       this.map_[p.x][p.y][p.d] :
-      Number['MAX_SAFE_INTEGER']);
+      Infinity);
 };

@@ -51,8 +51,30 @@ app.pathFinder.Team.prototype.findMemberByPosition = function(c) {
   });
 };
 
+app.pathFinder.Team.prototype.findMemberIndexByPosition = function(c) {
+  if (!(c instanceof app.pathFinder.Coord) && !(c instanceof app.pathFinder.Poz) && !(c instanceof app.pathFinder.Person)) {
+    c = app.pathFinder.CoordTransformMatrix.getInstance().D1ToD2[c];
+  }
+  return goog.array.findIndex(this.team_, function(r) {
+    return r.compairByCoord(c);
+  });
+};
+
+app.pathFinder.Team.prototype.getMemberCount = function() {
+  return this.team_.length;
+};
+
 app.pathFinder.Team.prototype.getSelected = function() {
   return this.getMemberByIndex(this.selectedIndex_);
+};
+
+app.pathFinder.Team.prototype.getSelectedIndex = function() {
+  return this.selectedIndex_;
+};
+
+app.pathFinder.Team.prototype.setSelected = function(i) {
+  this.selectedIndex_ = i;
+  return this;
 };
 
 app.pathFinder.Team.prototype.calculateVisibility = function() {
