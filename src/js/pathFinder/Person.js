@@ -85,7 +85,6 @@ app.pathFinder.Person.prototype.checkForWall = function(c) {
   }
 
   result = this.ws_.checkDidntVertical(calcF, Math.max(x1, x2), Math.min(x1, x2));
-  //result = this.ws_.checkDidntHorizontal(calcF, Math.min(y1, y2), Math.max(y1, y2));
   if (!result) {
     return result;
   }
@@ -102,7 +101,6 @@ app.pathFinder.Person.prototype.checkForWall = function(c) {
     };
   }
 
-  //result = this.ws_.checkDidntVertical(calcF, Math.min(x1, x2), Math.max(x1, x2));
   result = this.ws_.checkDidntHorizontal(calcF, Math.max(y1, y2), Math.min(y1, y2));
   return result;
 };
@@ -118,21 +116,31 @@ app.pathFinder.Person.prototype.calculateVisibility = function() {
     var tile = this.m_.getTileByCoord(i);
     if (
       isDistanceInfinity ||
-      (this.findDistance(tile.getD2Coord()) < visibilityDistance)
+      (
+        (Math.abs(tile.getD2Coord().x - this.x) < visibilityDistance) &&
+        (Math.abs(tile.getD2Coord().y - this.y) < visibilityDistance)
+      )
     ) {
-      var tileAngle = this.findAngle(tile.getD2Coord());
       if (
-        (
-          (tileAngle < maxAngle1) &&
-          (tileAngle > minAngle1)
-        ) ||
-        (
-          (tileAngle < maxAngle2) &&
-          (tileAngle > minAngle2)
-        )
+        isDistanceInfinity ||
+        (this.findDistance(tile.getD2Coord()) < visibilityDistance)
       ) {
-        if (this.checkForWall(tile.getD2Coord())) {
-          tile.setVisibility(true);
+        var tileAngle = this.findAngle(tile.getD2Coord());
+        if (
+          (
+            (tileAngle < maxAngle1) &&
+            (tileAngle > minAngle1)
+          ) ||
+          (
+            (tileAngle < maxAngle2) &&
+            (tileAngle > minAngle2)
+          )
+        ) {
+          if (this.checkForWall(tile.getD2Coord())) {
+            tile.setVisibility(true);
+          } else {
+            tile.setVisibility(false);
+          }
         } else {
           tile.setVisibility(false);
         }

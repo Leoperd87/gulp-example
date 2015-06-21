@@ -15,8 +15,7 @@ goog.require('app.pathFinder.CoordTransformMatrix');
 goog.require('app.pathFinder.Team');
 goog.require('app.pathFinder.UIMap');
 
-var v,
-  lineLength = 7,
+var lineLength = 7,
   rowCound = 10,
   size = 50,
   mapAsString = ([
@@ -35,7 +34,7 @@ var v,
       direction: 7
     }
   ],
-  visibilityAngle = 60, // that mean +-80
+  visibilityAngle = 60, // that mean +-60
   visibilityDistance = -1; // that mean infinity
 
 app.pathFinder.CoordTransformMatrix.getInstance().init(rowCound, lineLength, mapAsString);
