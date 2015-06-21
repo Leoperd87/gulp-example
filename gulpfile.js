@@ -53,7 +53,8 @@ gulp.task('closure', ['sprites', 'less', 'soy'], function() {
     './src/js/**/*.js',
     './tmp/js/**/*.js',
     './tmp/soy/**/*.js',
-    './bower_components/closure-library/**/*.js',
+    './bower_components/closure-library/closure/goog/**/*.js',
+    './bower_components/closure-library/third_party/closure/goog/**/*.js',
     './bower_components/closure-templates/javascript/soyutils_usegoog.js'
   ])
     .pipe(closureCompiler({

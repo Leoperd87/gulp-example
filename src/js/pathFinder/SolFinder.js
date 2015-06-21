@@ -15,22 +15,23 @@ goog.require('app.pathFinder.TransformVocabulary');
 goog.require('goog.dom.classlist');
 goog.require('goog.async.Deferred');
 goog.require('goog.Timer');
+goog.require('app.pathFinder.CoordTransformMatrix');
 
-var SolFinder = function(map) {
+app.pathFinder.SolFinder = function(map) {
   this.map_ = map;
   this.runDef_ = new goog.async.Deferred();
   this.runDef_.callback({});
+  this.uiMap_ = app.pathFinder.UIMap.getInstance();
 };
-SolFinder.prototype = {
-  setFrom: function(p) {
+app.pathFinder.SolFinder.prototype.setFrom= function(p) {
     this.from_ = p;
     return this;
-  },
-  setTo: function(p) {
+  };
+app.pathFinder.SolFinder.prototype.setTo= function(p) {
     this.to_ = p;
     return this;
-  },
-  convertMapToWalls: function(v) {
+  };
+app.pathFinder.SolFinder.prototype.convertMapToWalls= function(v) {
     var m = parseInt(v, 10).toString(2).split('').reverse();
     return {
       vertical: m[0] == '1',
@@ -38,16 +39,16 @@ SolFinder.prototype = {
       both: m[0] == '1' && m[1] == '1',
       any: m[0] == '1' || m[1] == '1'
     }
-  },
-  findPath: function() {
+  };
+app.pathFinder.SolFinder.prototype.findPath= function() {
     this.betterWay_ = undefined;
 
     if (this.to_.compairByCoord(this.from_)) {
       return this;
     }
 
-    this.solutionsPull_ = [(new Solution(this.from_))];
-    this.moveMap_ = new MoveMap(this.map_.length, this.map_[0].length);
+    this.solutionsPull_ = [(new app.pathFinder.Solution(this.from_))];
+    this.moveMap_ = new app.pathFinder.MoveMap(this.map_.length, this.map_[0].length);
     this.moveMap_.set(this.from_, 0);
 
     var currentSol,
@@ -107,9 +108,9 @@ SolFinder.prototype = {
       newMove = lastMove.clone(lastMove.d);
       if (this.map_[lastMove.x][lastMove.y] !== 'u' && this.moveMap_.get(newMove) > currentSol.getTime() + moveTime) {
         currentMapSate = this.convertMapToWalls(this.getLocalMap_(lastMove.x, lastMove.y));
-        frontMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + moveKeys[lastMove.d].x, lastMove.y + moveKeys[lastMove.d].y));
-        frontLeftMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + moveKeys[lastMove.calcLeftD()].x, lastMove.y + moveKeys[lastMove.calcLeftD()].y));
-        frontRightMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + moveKeys[lastMove.calcRightD()].x, lastMove.y + moveKeys[lastMove.calcRightD()].y));
+        frontMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + app.pathFinder.MoveConsts[lastMove.d].x, lastMove.y + app.pathFinder.MoveConsts[lastMove.d].y));
+        frontLeftMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + app.pathFinder.MoveConsts[lastMove.calcLeftD()].x, lastMove.y + app.pathFinder.MoveConsts[lastMove.calcLeftD()].y));
+        frontRightMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + app.pathFinder.MoveConsts[lastMove.calcRightD()].x, lastMove.y + app.pathFinder.MoveConsts[lastMove.calcRightD()].y));
         switch (lastMove.d) {
           case 1:
             didCan = (
@@ -171,8 +172,8 @@ SolFinder.prototype = {
       this.to_ = this.from_.clone();
     }
     return this;
-  },
-  getLocalMap_: function(x, y) {
+  };
+app.pathFinder.SolFinder.prototype.getLocalMap_= function(x, y) {
     var r = 0;
     if (
       goog.isDefAndNotNull(this.map_[x]) &&
@@ -181,8 +182,8 @@ SolFinder.prototype = {
       r = this.map_[x][y];
     }
     return r;
-  },
-  printSolutionAsCommands: function() {
+  };
+app.pathFinder.SolFinder.prototype.printSolutionAsCommands= function() {
     if (goog.isDefAndNotNull(this.betterWay_)) {
       console.log('Time: ' + this.betterWay_.getTime());
       console.log('Solution: ' + this.betterWay_.getSolutionAsCommands().join(', '));
@@ -190,43 +191,46 @@ SolFinder.prototype = {
       console.log('can\'t find solution');
     }
     return this;
-  },
-  didGotWay: function() {
+  };
+app.pathFinder.SolFinder.prototype.didGotWay= function() {
     return goog.isDefAndNotNull(this.betterWay_);
-  },
-  getBetterSolutionAsBinary: function() {
+  };
+app.pathFinder.SolFinder.prototype.getBetterSolutionAsBinary= function() {
     return this.betterWay_.getSolutionAsBinary();
-  },
-  runBinarySolution: function(solAsBin) {
+  };
+app.pathFinder.SolFinder.prototype.runBinarySolution= function(solAsBin) {
     this.runDef_ = new goog.async.Deferred();
-    goog.dom.classlist.remove(
-      lis[coordTransformMap.D2ToD1[this.from_.x][this.from_.y]],
-      CssRotateAngleConst[this.from_.d]);
+    this.uiMap_.getTileByCoord(this.from_).removeCssClass(app.pathFinder.CssRotateAngleConst[this.from_.d]);
     this.vizualizationIteration_(solAsBin);
-  },
-  vizualizationIteration_: function(sol) {
+  };
+app.pathFinder.SolFinder.prototype.vizualizationIteration_= function(sol) {
       var step = sol.shift();
-      var el = lis[coordTransformMap.D2ToD1[step.x][step.y]];
-      goog.dom.classlist.add(el, goog.getCssName('man'));
-      goog.dom.classlist.add(el, step.transform);
+      var el = this.uiMap_.getTileByCoord(step)
+        .addCssClass(goog.getCssName('man'))
+        .addCssClass(step.transform);
       goog.Timer.callOnce(function() {
-        goog.dom.classlist.remove(el, step.transform);
-        goog.dom.classlist.remove(el, goog.getCssName('man'));
+        el
+          .removeCssClass(goog.getCssName('man'))
+          .removeCssClass(step.transform);
         if (sol.length) {
           this.vizualizationIteration_(sol);
         } else {
           this.to_.d = step.d;
-          var finalEl = lis[coordTransformMap.D2ToD1[this.to_.x][this.to_.y]];
-          goog.dom.classlist.add(finalEl, goog.getCssName('man'));
-          goog.dom.classlist.add(finalEl, CssRotateAngleConst[step.d]);
+          this.uiMap_.getTileByCoord(this.to_)
+            .addCssClass(goog.getCssName('man'))
+            .addCssClass(app.pathFinder.CssRotateAngleConst[step.d]);
           this.runDef_.callback({});
         }
+        var teamMember = app.pathFinder.Team.getInstance().getSelected();
+        teamMember.x = step.rx;
+        teamMember.y = step.ry;
+        teamMember.d = step.d;
+        app.pathFinder.Team.getInstance().calculateVisibility();
       }, step.opTime * 1000, this);
-    },
-  getStopRunDef: function() {
+    };
+app.pathFinder.SolFinder.prototype.getStopRunDef= function() {
     return this.runDef_;
-  },
-  getTo: function() {
+  };
+app.pathFinder.SolFinder.prototype.getTo= function() {
     return (goog.isDefAndNotNull(this.to_) ? this.to_ : this.from_).clone();
-  }
-};
+  };

@@ -5,11 +5,21 @@
   list-style: none;
 }
 
+body {
+  background: black;
+}
+
 li {
   .size(@c_size);
   .transform(rotate(45deg));
   margin: -14px 0 0 20px;
   float: left;
+  opacity: .5;
+  .transition(opacity 0.5s linear);
+
+  &.visible {
+    opacity: 1;
+  }
 
   &.man {
     .object {

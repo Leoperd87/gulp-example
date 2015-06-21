@@ -4,7 +4,7 @@
 
 goog.provide('app.pathFinder.TransformVocabulary');
 
-TransformVocabulary = {
+app.pathFinder.TransformVocabulary = {
   r12: goog.getCssName('r12'),
   r23: goog.getCssName('r23'),
   r34: goog.getCssName('r34'),

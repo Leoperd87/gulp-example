@@ -5,7 +5,10 @@
 
 goog.provide('app.pathFinder.CssRotateAngleConst');
 
-CssRotateAngleConst = {
+/**
+ * @type { {}}
+ */
+app.pathFinder.CssRotateAngleConst = {
   1: goog.getCssName('angle-1'),
   2: goog.getCssName('angle-2'),
   3: goog.getCssName('angle-3'),
