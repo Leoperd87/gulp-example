@@ -88,7 +88,7 @@ gulp.task('copy', function() {
 
 gulp.task('sprites', function () {
   return sprity.src({
-    src: './src/sprites/man/*.png',
+    src: './src/sprites/**/*.png',
     cssPath: './images/sprites',
     name: 'man-sprite',
     template: './src/sprites/sprite.hbs',
