@@ -18,7 +18,7 @@ app.pathFinder.MoveMap = function(x, y) {
 /**
  * @param {app.pathFinder.Poz} p
  * @param {number} v
- * @param {=boolean} forAllDirection
+ * @param {boolean=} forAllDirection
  * @returns {app.pathFinder.MoveMap}
  */
 app.pathFinder.MoveMap.prototype.set = function(p, v, forAllDirection) {

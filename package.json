@@ -8,6 +8,7 @@
     "gulp-closure-compiler": "~0.2.19",
     "gulp-closure-css-renamer": "~0.0.2",
     "gulp-if": "^1.2.5",
+    "gulp-jsdoc": "^0.1.4",
     "gulp-less": "~3.0.3",
     "gulp-minify-css": "~1.1.1",
     "gulp-soynode": "~1.5.0",

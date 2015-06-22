@@ -13,9 +13,10 @@ var soynode = require('gulp-soynode');
 var closureCompiler = require('gulp-closure-compiler');
 var gulpif = require('gulp-if');
 var sprity = require('sprity');
+var jsdoc = require('gulp-jsdoc');
 
 gulp.task('clean', function() {
-  del(['tmp', 'target'], function(err, deletedFiles) {
+  del(['tmp', 'target', 'doc'], function(err, deletedFiles) {
     console.log('Files deleted:', deletedFiles.join(', '));
   });
 });
@@ -86,7 +87,7 @@ gulp.task('copy', function() {
 //  gulp.watch('lib/*.ts', ['scripts']);
 //});
 
-gulp.task('sprites', function () {
+gulp.task('sprites', function() {
   return sprity.src({
     src: './src/sprites/**/*.png',
     cssPath: './images/sprites',
@@ -100,7 +101,14 @@ gulp.task('sprites', function () {
     prefix: 'man-icons'
     // ... other optional options
   })
-  .pipe(gulpif('*.png', gulp.dest('./target/images/sprites/'), gulp.dest('./tmp/less/sprites')));
+    .pipe(gulpif('*.png', gulp.dest('./target/images/sprites/'), gulp.dest('./tmp/less/sprites')));
+});
+
+gulp.task('doc', function() {
+  gulp.src([
+    './src/js/**/*.js'
+  ])
+    .pipe(jsdoc('./doc/js'));
 });
 
 gulp.task('default', ['copy', 'closure']);

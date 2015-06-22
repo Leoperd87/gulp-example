@@ -10,8 +10,8 @@ goog.require('app.pathFinder.TimeConsts');
 goog.require('app.pathFinder.TransformVocabulary');
 
 /**
- * @param {=app.pathFinder.Poz} p
- * @param {=number} t
+ * @param {app.pathFinder.Poz=} p
+ * @param {number=} t
  * @constructor
  */
 app.pathFinder.Solution = function(p, t) {
