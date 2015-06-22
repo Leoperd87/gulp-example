@@ -12,6 +12,6 @@
     "gulp-minify-css": "~1.1.1",
     "gulp-soynode": "~1.5.0",
     "mkdirp": "^0.5.1",
-    "sprity": "^1.0.3"
+    "sprity": "1.0.3"
   }
 }

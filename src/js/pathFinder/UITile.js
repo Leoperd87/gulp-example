@@ -8,6 +8,7 @@ goog.require('app.soy.UITile');
 
 /**
  * @param {number} c
+ * @extends {goog.ui.Component}
  * @constructor
  */
 app.pathFinder.UITile = function(c) {
@@ -20,10 +21,16 @@ app.pathFinder.UITile = function(c) {
 };
 goog.inherits(app.pathFinder.UITile, goog.ui.Component);
 
+/**
+ * @param {boolean} state
+ */
 app.pathFinder.UITile.prototype.setVisibility = function(state) {
   this.newVisibility_ = this.newVisibility_ || state;
 };
 
+/**
+ * @returns {app.pathFinder.UITile}
+ */
 app.pathFinder.UITile.prototype.pushVisibility = function() {
   if (this.currentVisibility_ != this.newVisibility_) {
     if (this.newVisibility_) {
@@ -34,19 +41,37 @@ app.pathFinder.UITile.prototype.pushVisibility = function() {
   }
   this.currentVisibility_ = this.newVisibility_;
   this.newVisibility_ = false;
+  return this;
 };
 
+/**
+ * @param {string} cssClass
+ * @returns {app.pathFinder.UITile}
+ */
 app.pathFinder.UITile.prototype.removeCssClass = function(cssClass) {
   goog.dom.classlist.remove(this.getElement(), cssClass);
   return this;
 };
+
+/**
+ * @param {string} cssClass
+ * @returns {app.pathFinder.UITile}
+ */
 app.pathFinder.UITile.prototype.addCssClass = function(cssClass) {
   goog.dom.classlist.add(this.getElement(), cssClass);
   return this;
 };
+
+/**
+ * @returns {app.pathFinder.Coord}
+ */
 app.pathFinder.UITile.prototype.getD2Coord = function() {
   return this.coord2d_;
 };
+
+/**
+ * @override
+ */
 app.pathFinder.UITile.prototype.createDom = function() {
   var tileValue = mapAsString[this.coord1d_];
   var className = goog.getCssName('a0');
@@ -79,6 +104,10 @@ app.pathFinder.UITile.prototype.createDom = function() {
   this.decorateInternal(this.dom_.createDom('li', currentArrayOfClasses.join(' ')));
 };
 
+/**
+ * @override
+ * @param element
+ */
 app.pathFinder.UITile.prototype.decorateInternal = function(element) {
   goog.base(this, 'decorateInternal', element);
   goog.soy.renderElement(this.getElement(), app.soy.UITile.main);

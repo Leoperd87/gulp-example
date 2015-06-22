@@ -7,8 +7,6 @@ goog.require('goog.events');
 goog.require('goog.events.EventType');
 goog.require('app.pathFinder.CssRotateAngleConst');
 
-goog.require('template1');
-
 goog.require('app.pathFinder.SolFinder');
 goog.require('app.pathFinder.WallFunctionStore');
 goog.require('app.pathFinder.CoordTransformMatrix');
