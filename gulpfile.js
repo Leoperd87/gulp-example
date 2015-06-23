@@ -113,7 +113,7 @@ gulp.task('jsdoc', function() {
     .pipe(jsdoc('./doc/js'));
 });
 
-gulp.task('prepareStyleDoc', ['less'], function(cb) {
+gulp.task('prepareStyleDoc', ['copyLess', 'sprites'], function(cb) {
   child = exec('kss-node -c kss-config.json', function(error, stdout, stderr) {
     cb();
   });
