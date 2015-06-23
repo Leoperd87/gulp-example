@@ -1,3 +1,40 @@
+/*
+Tile Animation
+
+If you want to see animation try to reload page.
+
+.r81          - Rotate from direction 8 to direction 1.
+.r12          - Rotate from direction 1 to direction 2.
+.r23          - Rotate from direction 2 to direction 3.
+.r34          - Rotate from direction 3 to direction 4.
+.r45          - Rotate from direction 4 to direction 5.
+.r56          - Rotate from direction 5 to direction 6.
+.r67          - Rotate from direction 6 to direction 7.
+.r78          - Rotate from direction 7 to direction 8.
+.r18          - Rotate from direction 1 to direction 8.
+.r21          - Rotate from direction 2 to direction 1.
+.r32          - Rotate from direction 3 to direction 2.
+.r43          - Rotate from direction 4 to direction 3.
+.r54          - Rotate from direction 5 to direction 4.
+.r65          - Rotate from direction 6 to direction 5.
+.r76          - Rotate from direction 7 to direction 6.
+.r87          - Rotate from direction 8 to direction 7.
+.mtl          - Move To Left.
+.mfl          - Move From Left.
+.mtlt         - Move To Left Top.
+.mflt         - Move From Left Top.
+.mtt          - Move To Top.
+.mft          - Move From Top.
+.mtrt         - Move To Right Top.
+.mfrt         - Move From Right Top.
+
+Markup: tileAnimation.hbs
+
+Weight: 2
+
+Style guide: tiles.dynamic
+*/
+
 @r81: { 0% {
   .sprite(@icon-man-64-8);
 } 0% {
@@ -7,7 +44,7 @@
     } };
 .keyframes(r81, @r81);
 
-.map-holder .r81 .object {
+.tile.r81 .object {
   .addAnimation(r81 @rotateTime linear);
   .sprite(@icon-man-64-1);
   .man-icons-man;
@@ -22,7 +59,7 @@
     } };
 .keyframes(r12, @r12);
 
-.map-holder .r12 .object {
+.tile.r12 .object {
   .addAnimation(r12 @rotateTime linear);
   .sprite(@icon-man-64-2);
   .man-icons-man;
@@ -37,7 +74,7 @@
     } };
 .keyframes(r23, @r23);
 
-.map-holder .r23 .object {
+.tile.r23 .object {
   .addAnimation(r23 @rotateTime linear);
   .sprite(@icon-man-64-3);
   .man-icons-man;
@@ -52,7 +89,7 @@
     } };
 .keyframes(r34, @r34);
 
-.map-holder .r34 .object {
+.tile.r34 .object {
   .addAnimation(r34 @rotateTime linear);
   .sprite(@icon-man-64-4);
   .man-icons-man;
@@ -67,7 +104,7 @@
     } };
 .keyframes(r45, @r45);
 
-.map-holder .r45 .object {
+.tile.r45 .object {
   .addAnimation(r45 @rotateTime linear);
   .sprite(@icon-man-64-5);
   .man-icons-man;
@@ -82,7 +119,7 @@
     } };
 .keyframes(r56, @r56);
 
-.map-holder .r56 .object {
+.tile.r56 .object {
   .addAnimation(r56 @rotateTime linear);
   .sprite(@icon-man-64-6);
   .man-icons-man;
@@ -97,7 +134,7 @@
     } };
 .keyframes(r67, @r67);
 
-.map-holder .r67 .object {
+.tile.r67 .object {
   .addAnimation(r67 @rotateTime linear);
   .sprite(@icon-man-64-7);
   .man-icons-man;
@@ -112,7 +149,7 @@
     } };
 .keyframes(r78, @r78);
 
-.map-holder .r78 .object {
+.tile.r78 .object {
   .addAnimation(r78 @rotateTime linear);
   .sprite(@icon-man-64-8);
   .man-icons-man;
@@ -127,7 +164,7 @@
     } };
 .keyframes(r18, @r18);
 
-.map-holder .r18 .object {
+.tile.r18 .object {
   .addAnimation(r18 @rotateTime linear);
   .sprite(@icon-man-64-8);
   .man-icons-man;
@@ -142,7 +179,7 @@
     } };
 .keyframes(r21, @r21);
 
-.map-holder .r21 .object {
+.tile.r21 .object {
   .addAnimation(r21 @rotateTime linear);
   .sprite(@icon-man-64-1);
   .man-icons-man;
@@ -157,7 +194,7 @@
     } };
 .keyframes(r32, @r32);
 
-.map-holder .r32 .object {
+.tile.r32 .object {
   .addAnimation(r32 @rotateTime linear);
   .sprite(@icon-man-64-2);
   .man-icons-man;
@@ -172,7 +209,7 @@
     } };
 .keyframes(r43, @r43);
 
-.map-holder .r43 .object {
+.tile.r43 .object {
   .addAnimation(r43 @rotateTime linear);
   .sprite(@icon-man-64-3);
   .man-icons-man;
@@ -187,7 +224,7 @@
     } };
 .keyframes(r54, @r54);
 
-.map-holder .r54 .object {
+.tile.r54 .object {
   .addAnimation(r54 @rotateTime linear);
   .sprite(@icon-man-64-4);
   .man-icons-man;
@@ -202,7 +239,7 @@
     } };
 .keyframes(r65, @r65);
 
-.map-holder .r65 .object {
+.tile.r65 .object {
   .addAnimation(r65 @rotateTime linear);
   .sprite(@icon-man-64-5);
   .man-icons-man;
@@ -217,7 +254,7 @@
     } };
 .keyframes(r76, @r76);
 
-.map-holder .r76 .object {
+.tile.r76 .object {
   .addAnimation(r76 @rotateTime linear);
   .sprite(@icon-man-64-6);
   .man-icons-man;
@@ -232,7 +269,7 @@
     } };
 .keyframes(r87, @r87);
 
-.map-holder .r87 .object {
+.tile.r87 .object {
   .addAnimation(r87 @rotateTime linear);
   .sprite(@icon-man-64-7);
   .man-icons-man;
@@ -247,7 +284,7 @@
   } };
 .keyframes(mtl, @mtl);
 
-.map-holder .mtl .object {
+.tile.mtl .object {
   .addAnimation(mtl @moveTime linear);
   .transform(rotate(-45deg) translate(-70px, -35px));
   .sprite(@icon-man-64-7);
@@ -261,7 +298,7 @@
   } };
 .keyframes(mfl, @mfl);
 
-.map-holder .mfl .object {
+.tile.mfl .object {
   .addAnimation(mfl @moveTime linear);
   .transform(rotate(-45deg) translate(0, -35px));
   .sprite(@icon-man-64-3);
@@ -275,7 +312,7 @@
   } };
 .keyframes(mtlt, @mtlt);
 
-.map-holder .mtlt .object {
+.tile.mtlt .object {
   .addAnimation(mtlt @moveTime linear);
   .transform(rotate(-45deg) translate(-35px, -71px));
   .sprite(@icon-man-64-8);
@@ -289,7 +326,7 @@
   } };
 .keyframes(mflt, @mflt);
 
-.map-holder .mflt .object {
+.tile.mflt .object {
   .addAnimation(mflt @moveTime linear);
   .transform(rotate(-45deg) translate(0, -35px));
   .sprite(@icon-man-64-4);
@@ -303,7 +340,7 @@
   } };
 .keyframes(mtt, @mtt);
 
-.map-holder .mtt .object {
+.tile.mtt .object {
   .addAnimation(mtt @moveTime linear);
   .transform(rotate(-45deg) translate(0px, -107px));
   .sprite(@icon-man-64-1);
@@ -317,7 +354,7 @@
   } };
 .keyframes(mft, @mft);
 
-.map-holder .mft .object {
+.tile.mft .object {
   .addAnimation(mft @moveTime linear);
   .transform(rotate(-45deg) translate(0, -35px));
   .sprite(@icon-man-64-5);
@@ -331,7 +368,7 @@
   } };
 .keyframes(mtrt, @mtrt);
 
-.map-holder .mtrt .object {
+.tile.mtrt .object {
   .addAnimation(mtrt @moveTime linear);
   .transform(rotate(-45deg) translate(35px, -71px));
   .sprite(@icon-man-64-2);
@@ -345,7 +382,7 @@
   } };
 .keyframes(mfrt, @mfrt);
 
-.map-holder .mfrt .object {
+.tile.mfrt .object {
   .addAnimation(mfrt @moveTime linear);
   .transform(rotate(-45deg) translate(0, -35px));
   .sprite(@icon-man-64-6);

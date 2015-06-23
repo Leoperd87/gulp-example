@@ -1,5 +1,10 @@
-
-/* DEG expl.: "45deg"*/
+// .rotate(@DEG)
+//
+// Rotate DOM element.
+//
+// @DEG - Direction; example `45deg`.
+//
+// Style guide: mixins.example
 .rotate(@DEG) {
   -webkit-transform: rotate(@DEG);
   -moz-transform: rotate(@DEG);
@@ -8,6 +13,13 @@
   transform: rotate(@DEG);
 }
 
+// .scale(@ARG)
+//
+// Scale DOM element.
+//
+// @ARG - transformation arguments.
+//
+// Style guide: mixins.example
 .scale(@ARG) {
   -webkit-transform: scale(@ARG);
   -moz-transform: scale(@ARG);
@@ -16,6 +28,13 @@
   transform: scale(@ARG);
 }
 
+// .transform(...)
+//
+// Transform DOM element.
+//
+// ... - transformation arguments.
+//
+// Style guide: mixins.example
 .transform(...) {
   -moz-transform: @arguments;
   -ms-transform: @arguments;
@@ -24,12 +43,26 @@
   transform: @arguments;
 }
 
+// .shadow(...)
+//
+// Draw shadow.
+//
+// ... - shadow arguments.
+//
+// Style guide: mixins.example
 .shadow(...) {
   -webkit-box-shadow: @arguments; /* Safari 3.0 */
   -moz-box-shadow: @arguments; /* Firefox 3.5 */
   box-shadow: @arguments; /* Other */
 }
 
+// .bRadius(...)
+//
+// Add border radius.
+//
+// ... - border radius.
+//
+// Style guide: mixins.example
 .bRadius(...) {
   -moz-border-radius: @arguments; /* FF 3 */
   -webkit-border-radius: @arguments; /* Safari 4 Chrome */
@@ -37,10 +70,24 @@
   border-radius: @arguments; /* Other */
 }
 
+// .virtual()
+//
+// Add `content: '';` to element.
+//
+// Style guide: mixins.example
 .virtual() {
   content: '';
 }
 
+// .size(@S, @W)
+//
+// Set element size.
+//
+// @S - If you use only one argument this argument would be used as height and width.
+//      If you use two arguments this argument would be height.
+// @W - Width; defaults to `@S`.
+//
+// Style guide: mixins.example
 .size(@S) {
   height: @S;
   width: @S;
@@ -51,98 +98,140 @@
   width: @W;
 }
 
+// .clr()
+//
+// Add `clear: both;` to element.
+//
+// Style guide: mixins.example
 .clr() {
   clear: both;
 }
 
-.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @ROLLBACK) {
+// .linerVerticalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT[, @COLOR, @PERCENT])
+//
+// Set vertical gradient as background.
+// WARNING: Not less that 2 and not more that 6 colors.
+// WARNING: It can be used only as single background image.
+//
+// @ROLLBACK - Would be used as background color if current browser didn't support gradient.
+// @COLOR - Any kind of color.
+// @PERCENT - Any kind of position, but percents are recomended.
+//
+// Style guide: mixins.example
+.linerVerticalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* FF 3.6+ */
-  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* IE 10 */
-  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* Opera 11.10+ */
-  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2)); /* Safari 3+ */
+  background: -moz-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2)); /* Safari 3+ */
   //  filter: ~"progid:DXImageTransform.Microsoft.gradient( startColorstr='@{COLOR1}', endColorstr='@{COLOR2}',GradientType=0 )"; /* IE6-9 */
 }
 
-.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @ROLLBACK) {
+.linerVerticalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* FF 3.6+ */
-  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* IE 10 */
-  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* Opera 11.10+ */
-  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3)); /* Safari 3+ */
+  background: -moz-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3)); /* Safari 3+ */
 }
 
-.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @ROLLBACK) {
+.linerVerticalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* FF 3.6+ */
-  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* IE 10 */
-  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Opera 11.10+ */
-  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4)); /* Safari 3+ */
+  background: -moz-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4)); /* Safari 3+ */
 }
 
-.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @ROLLBACK) {
+.linerVerticalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4, @COLOR5, @PERCENT5) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* FF 3.6+ */
-  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* IE 10 */
-  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* Opera 11.10+ */
-  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5)); /* Safari 3+ */
+  background: -moz-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4), color-stop(@PERCENT5,@COLOR5)); /* Safari 3+ */
 }
 
-.linerVerticalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @COLOR6, @PERSENT6, @ROLLBACK) {
+.linerVerticalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4, @COLOR5, @PERCENT5, @COLOR6, @PERCENT6) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* FF 3.6+ */
-  background: -webkit-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* IE 10 */
-  background: -o-linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Opera 11.10+ */
-  background: linear-gradient(top, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5), color-stop(@PERSENT6,@COLOR6)); /* Safari 3+ */
+  background: -moz-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* FF 3.6+ */
+  background: -webkit-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* IE 10 */
+  background: -o-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* Opera 11.10+ */
+  background: linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4), color-stop(@PERCENT5,@COLOR5), color-stop(@PERCENT6,@COLOR6)); /* Safari 3+ */
 }
 
 
-.linerHorizontalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @ROLLBACK) {
+// .linerHorizontalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT[, @COLOR, @PERCENT])
+//
+// Set horizontal gradient as background.
+// WARNING: only for 4 and 6 colors.
+// WARNING: It can be used only as single background image.
+//
+// @ROLLBACK - Would be used as background color if current browser didn't support gradient.
+// @COLOR - Any kind of color.
+// @PERCENT - Any kind of position, but percents are recomended.
+//
+// Style guide: mixins.example
+.linerHorizontalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* FF 3.6+ */
-  background: -webkit-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* IE 10 */
-  background: -o-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* Opera 11.10+ */
-  background: linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, right top, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4)); /* Safari 3+ */
+  background: -moz-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* FF 3.6+ */
+  background: -webkit-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* IE 10 */
+  background: -o-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* Opera 11.10+ */
+  background: linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, right top, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4)); /* Safari 3+ */
 }
 
-.linerHorizontalGradient(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @COLOR6, @PERSENT6, @ROLLBACK) {
+.linerHorizontalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4, @COLOR5, @PERCENT5, @COLOR6, @PERCENT6) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* FF 3.6+ */
-  background: -webkit-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* IE 10 */
-  background: -o-linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* Opera 11.10+ */
-  background: linear-gradient(left, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, right top, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5), color-stop(@PERSENT6,@COLOR6)); /* Safari 3+ */
+  background: -moz-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* FF 3.6+ */
+  background: -webkit-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* IE 10 */
+  background: -o-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* Opera 11.10+ */
+  background: linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, right top, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4), color-stop(@PERCENT5,@COLOR5), color-stop(@PERCENT6,@COLOR6)); /* Safari 3+ */
 }
 
-.liner45Gradient7(@COLOR1, @PERSENT1, @COLOR2, @PERSENT2, @COLOR3, @PERSENT3, @COLOR4, @PERSENT4, @COLOR5, @PERSENT5, @COLOR6, @PERSENT6, @COLOR7, @PERSENT7, @ROLLBACK) {
+// .linerHorizontalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT)
+//
+// Set horizontal gradient as background.
+// WARNING: result of this function look different in different browsers.
+// WARNING: only for 7 colors.
+// WARNING: It can be used only as single background image.
+//
+// @ROLLBACK - Would be used as background color if current browser didn't support gradient.
+// @COLOR - Any kind of color.
+// @PERCENT - Any kind of position, but percents are recomended.
+//
+// Style guide: mixins.example
+.liner45Gradient7(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4, @COLOR5, @PERCENT5, @COLOR6, @PERCENT6, @COLOR7, @PERCENT7) {
   background: @ROLLBACK; /* !CSS 3 */
-  background: -moz-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* FF 3.6+ */
-  background: -webkit-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* Chrome 3.0+, Safari 5.1+ */
-  background: -ms-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* IE 10 */
-  background: -o-linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* Opera 11.10+ */
-  background: linear-gradient(-45deg, @COLOR1 @PERSENT1, @COLOR2 @PERSENT2, @COLOR3 @PERSENT3, @COLOR4 @PERSENT4, @COLOR5 @PERSENT5, @COLOR6 @PERSENT6, @COLOR7 @PERSENT7); /* CSS 3 */
-  background: -webkit-gradient(linear, left top, right bottom, color-stop(@PERSENT1,@COLOR1), color-stop(@PERSENT2,@COLOR2), color-stop(@PERSENT3,@COLOR3), color-stop(@PERSENT4,@COLOR4), color-stop(@PERSENT5,@COLOR5), color-stop(@PERSENT6,@COLOR6), color-stop(@PERSENT7,@COLOR7)); /* Safari 3+ */
+  background: -moz-linear-gradient(-45deg, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6, @COLOR7 @PERCENT7); /* FF 3.6+ */
+  background: -webkit-linear-gradient(-45deg, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6, @COLOR7 @PERCENT7); /* Chrome 3.0+, Safari 5.1+ */
+  background: -ms-linear-gradient(-45deg, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6, @COLOR7 @PERCENT7); /* IE 10 */
+  background: -o-linear-gradient(-45deg, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6, @COLOR7 @PERCENT7); /* Opera 11.10+ */
+  background: linear-gradient(-45deg, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6, @COLOR7 @PERCENT7); /* CSS 3 */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4), color-stop(@PERCENT5,@COLOR5), color-stop(@PERCENT6,@COLOR6), color-stop(@PERCENT7,@COLOR7)); /* Safari 3+ */
 }
 
-/**
- * @param {string} _ top|left|right|bottom
- * @param {size} size
- * @param {color} color
- */
-
+// .triangle(@orientation, @size, @color)
+//
+// Transform element to triangle.
+//
+// @orientation - Triangle orientation; available values: `top`, `left`, `right`, `bottom`.
+// @size - Any kind of size.
+// @color - Any kind of color.
+//
+// Style guide: mixins.example
 .triangle(top, @size, @color) {
   height: 0;
   width: 0;
@@ -178,6 +267,8 @@
   border-right: @size solid transparent;
   border-bottom: @size solid @color;
 }
+
+// todo from here
 
 // transition properties:
 //background-color

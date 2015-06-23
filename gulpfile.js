@@ -14,6 +14,8 @@ var closureCompiler = require('gulp-closure-compiler');
 var gulpif = require('gulp-if');
 var sprity = require('sprity');
 var jsdoc = require('gulp-jsdoc');
+var exec = require('child_process').exec;
+var child;
 
 gulp.task('clean', function() {
   del(['tmp', 'target', 'doc'], function(err, deletedFiles) {
@@ -104,11 +106,27 @@ gulp.task('sprites', function() {
     .pipe(gulpif('*.png', gulp.dest('./target/images/sprites/'), gulp.dest('./tmp/less/sprites')));
 });
 
-gulp.task('doc', function() {
-  gulp.src([
+gulp.task('jsdoc', function() {
+  return gulp.src([
     './src/js/**/*.js'
   ])
     .pipe(jsdoc('./doc/js'));
+});
+
+gulp.task('prepareStyleDoc', ['less'], function(cb) {
+  child = exec('kss-node -c kss-config.json', function(error, stdout, stderr) {
+    cb();
+  });
+});
+
+gulp.task('doc', ['jsdoc', 'prepareStyleDoc'], function() {
+  gulp.src('./target/images/**/*')
+    .pipe(gulp.dest('./doc/styles/public/images'));
+
+  return gulp.src('./tmp/less/styles.less')
+    .pipe(less())
+    .pipe(minifyCSS())
+    .pipe(gulp.dest('./doc/styles/public/'));
 });
 
 gulp.task('default', ['copy', 'closure']);

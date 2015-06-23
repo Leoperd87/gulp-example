@@ -74,7 +74,7 @@ app.pathFinder.UITile.prototype.getD2Coord = function() {
  */
 app.pathFinder.UITile.prototype.createDom = function() {
   var tileValue = mapAsString[this.coord1d_];
-  var className = goog.getCssName('a0');
+  var className = '';
 
   if (goog.isDefAndNotNull(tileValue)) {
     switch (tileValue) {
@@ -93,7 +93,7 @@ app.pathFinder.UITile.prototype.createDom = function() {
         break;
     }
   }
-  var currentArrayOfClasses = [className];
+  var currentArrayOfClasses = [goog.getCssName('tile'), className];
 
   var member = app.pathFinder.Team.getInstance().findMemberByPosition(this.coord2d_);
   if (member) {

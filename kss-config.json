@@ -1,0 +1,10 @@
+{
+  "source": "tmp/less",
+  "destination": "doc/styles",
+  "css": [
+    "public/styles.css"
+  ],
+  "js": [],
+  "mask": "*.less",
+  "title": "My first kss-node Style Guide"
+}

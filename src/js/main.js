@@ -46,6 +46,8 @@ app.pathFinder.UIMap.getInstance().initMap(size);
 app.pathFinder.Team.getInstance().calculateVisibility();
 var calc = new app.pathFinder.SolFinder(app.pathFinder.CoordTransformMatrix.getInstance().toArray());
 
+goog.dom.classlist.add(document.body, goog.getCssName('background'));
+
 app.pathFinder.UIMap.getInstance().setClickFunction(function(coord) {
   calc.getStopRunDef().addCallback(function() {
     var memberIndex = app.pathFinder.Team.getInstance().findMemberIndexByPosition(coord);
