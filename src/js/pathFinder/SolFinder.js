@@ -117,7 +117,7 @@ app.pathFinder.SolFinder.prototype.findPath = function() {
     if (
       (this.map_[lastMove.x][lastMove.y] !== 'u') &&
       (this.moveMap_.get(newMove) > -1) &&
-      (this.moveMap_.get(newMove) > currentSol.getTime() + moveTime)
+      (this.moveMap_.get(newMove) > currentSol.getTime() + (lastMove.d % 2 == 1 ? moveDiagonalTime : moveTime))
     ) {
       currentMapSate = this.convertMapToWalls(this.getLocalMap_(lastMove.x, lastMove.y));
       frontMapState = this.convertMapToWalls(this.getLocalMap_(lastMove.x + app.pathFinder.MoveConsts[lastMove.d].x, lastMove.y + app.pathFinder.MoveConsts[lastMove.d].y));
@@ -174,8 +174,8 @@ app.pathFinder.SolFinder.prototype.findPath = function() {
           break;
       }
       if (didCan) {
-        this.solutionsPull_.push((currentSol.clone(newMove, moveTime)));
-        this.moveMap_.set(newMove, currentSol.getTime() + moveTime)
+        this.solutionsPull_.push((currentSol.clone(newMove, (lastMove.d % 2 == 1 ? moveDiagonalTime : moveTime))));
+        this.moveMap_.set(newMove, currentSol.getTime() + (lastMove.d % 2 == 1 ? moveDiagonalTime : moveTime))
       }
     }
   }

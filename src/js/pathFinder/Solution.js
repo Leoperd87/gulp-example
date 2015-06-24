@@ -105,10 +105,10 @@ app.pathFinder.Solution.prototype.getSolutionAsBinary = function() {
   var fullTime = this.getTime();
   for (var i = 1; i < this.pull_.length; i++) {
     if (prev.d == this.pull_[i].d) {
-      currenTime += moveTime;
+      currenTime += (prev.d % 2 == 1 ? moveDiagonalTime : moveTime);
       t = {
         timeAsPercent: currenTime / fullTime * 100,
-        opTime: moveTime,
+        opTime: (prev.d % 2 == 1 ? moveDiagonalTime : moveTime),
         d: this.pull_[i].d,
         rx: this.pull_[i].x,
         ry: this.pull_[i].y
