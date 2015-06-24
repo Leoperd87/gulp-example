@@ -1,10 +1,12 @@
-// .rotate(@DEG)
-//
-// Rotate DOM element.
-//
-// @DEG - Direction; example `45deg`.
-//
-// Style guide: mixins.example
+/*
+.rotate(@DEG)
+
+Rotate DOM element.
+
+@DEG - Direction; example `45deg`.
+
+Style guide: mixins.example
+*/
 .rotate(@DEG) {
   -webkit-transform: rotate(@DEG);
   -moz-transform: rotate(@DEG);
@@ -13,13 +15,15 @@
   transform: rotate(@DEG);
 }
 
-// .scale(@ARG)
-//
-// Scale DOM element.
-//
-// @ARG - transformation arguments.
-//
-// Style guide: mixins.example
+/*
+.scale(@ARG)
+
+Scale DOM element.
+
+@ARG - transformation arguments.
+
+Style guide: mixins.example
+*/
 .scale(@ARG) {
   -webkit-transform: scale(@ARG);
   -moz-transform: scale(@ARG);
@@ -28,13 +32,15 @@
   transform: scale(@ARG);
 }
 
-// .transform(...)
-//
-// Transform DOM element.
-//
-// ... - transformation arguments.
-//
-// Style guide: mixins.example
+/*
+.transform(...)
+
+Transform DOM element.
+
+... - transformation arguments.
+
+Style guide: mixins.example
+*/
 .transform(...) {
   -moz-transform: @arguments;
   -ms-transform: @arguments;
@@ -43,26 +49,30 @@
   transform: @arguments;
 }
 
-// .shadow(...)
-//
-// Draw shadow.
-//
-// ... - shadow arguments.
-//
-// Style guide: mixins.example
+/*
+.shadow(...)
+
+Draw shadow.
+
+... - shadow arguments.
+
+Style guide: mixins.example
+*/
 .shadow(...) {
   -webkit-box-shadow: @arguments; /* Safari 3.0 */
   -moz-box-shadow: @arguments; /* Firefox 3.5 */
   box-shadow: @arguments; /* Other */
 }
 
-// .bRadius(...)
-//
-// Add border radius.
-//
-// ... - border radius.
-//
-// Style guide: mixins.example
+/*
+.bRadius(...)
+
+Add border radius.
+
+... - border radius.
+
+Style guide: mixins.example
+*/
 .bRadius(...) {
   -moz-border-radius: @arguments; /* FF 3 */
   -webkit-border-radius: @arguments; /* Safari 4 Chrome */
@@ -70,24 +80,28 @@
   border-radius: @arguments; /* Other */
 }
 
-// .virtual()
-//
-// Add `content: '';` to element.
-//
-// Style guide: mixins.example
+/*
+.virtual()
+
+Add `content: '';` to element.
+
+Style guide: mixins.example
+*/
 .virtual() {
   content: '';
 }
 
-// .size(@S, @W)
-//
-// Set element size.
-//
-// @S - If you use only one argument this argument would be used as height and width.
-//      If you use two arguments this argument would be height.
-// @W - Width; defaults to `@S`.
-//
-// Style guide: mixins.example
+/*
+.size(@S, @W)
+
+Set element size.
+
+@S - If you use only one argument this argument would be used as height and width.
+    If you use two arguments this argument would be height.
+@W - Width; defaults to `@S`.
+
+Style guide: mixins.example
+*/
 .size(@S) {
   height: @S;
   width: @S;
@@ -98,26 +112,30 @@
   width: @W;
 }
 
-// .clr()
-//
-// Add `clear: both;` to element.
-//
-// Style guide: mixins.example
+/*
+.clr()
+
+Add `clear: both;` to element.
+
+Style guide: mixins.example
+*/
 .clr() {
   clear: both;
 }
 
-// .linerVerticalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT[, @COLOR, @PERCENT])
-//
-// Set vertical gradient as background.
-// WARNING: Not less that 2 and not more that 6 colors.
-// WARNING: It can be used only as single background image.
-//
-// @ROLLBACK - Would be used as background color if current browser didn't support gradient.
-// @COLOR - Any kind of color.
-// @PERCENT - Any kind of position, but percents are recomended.
-//
-// Style guide: mixins.example
+/*
+.linerVerticalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT[, @COLOR, @PERCENT])
+
+Set vertical gradient as background.
+WARNING: Not less that 2 and not more that 6 colors.
+WARNING: It can be used only as single background image.
+
+@ROLLBACK - Would be used as background color if current browser didn't support gradient.
+@COLOR - Any kind of color.
+@PERCENT - Any kind of position, but percents are recomended.
+
+Style guide: mixins.example
+*/
 .linerVerticalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2) {
   background: @ROLLBACK; /* !CSS 3 */
   background: -moz-linear-gradient(top, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2); /* FF 3.6+ */
@@ -170,17 +188,19 @@
 }
 
 
-// .linerHorizontalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT[, @COLOR, @PERCENT])
-//
-// Set horizontal gradient as background.
-// WARNING: only for 4 and 6 colors.
-// WARNING: It can be used only as single background image.
-//
-// @ROLLBACK - Would be used as background color if current browser didn't support gradient.
-// @COLOR - Any kind of color.
-// @PERCENT - Any kind of position, but percents are recomended.
-//
-// Style guide: mixins.example
+/*
+.linerHorizontalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT[, @COLOR, @PERCENT])
+
+Set horizontal gradient as background.
+WARNING: only for 4 and 6 colors.
+WARNING: It can be used only as single background image.
+
+@ROLLBACK - Would be used as background color if current browser didn't support gradient.
+@COLOR - Any kind of color.
+@PERCENT - Any kind of position, but percents are recomended.
+
+Style guide: mixins.example
+*/
 .linerHorizontalGradient(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4) {
   background: @ROLLBACK; /* !CSS 3 */
   background: -moz-linear-gradient(left, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4); /* FF 3.6+ */
@@ -201,18 +221,20 @@
   background: -webkit-gradient(linear, left top, right top, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4), color-stop(@PERCENT5,@COLOR5), color-stop(@PERCENT6,@COLOR6)); /* Safari 3+ */
 }
 
-// .linerHorizontalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT)
-//
-// Set horizontal gradient as background.
-// WARNING: result of this function look different in different browsers.
-// WARNING: only for 7 colors.
-// WARNING: It can be used only as single background image.
-//
-// @ROLLBACK - Would be used as background color if current browser didn't support gradient.
-// @COLOR - Any kind of color.
-// @PERCENT - Any kind of position, but percents are recomended.
-//
-// Style guide: mixins.example
+/*
+.linerHorizontalGradient(@ROLLBACK, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT, @COLOR, @PERCENT)
+
+Set horizontal gradient as background.
+WARNING: result of this function look different in different browsers.
+WARNING: only for 7 colors.
+WARNING: It can be used only as single background image.
+
+@ROLLBACK - Would be used as background color if current browser didn't support gradient.
+@COLOR - Any kind of color.
+@PERCENT - Any kind of position, but percents are recomended.
+
+Style guide: mixins.example
+*/
 .liner45Gradient7(@ROLLBACK, @COLOR1, @PERCENT1, @COLOR2, @PERCENT2, @COLOR3, @PERCENT3, @COLOR4, @PERCENT4, @COLOR5, @PERCENT5, @COLOR6, @PERCENT6, @COLOR7, @PERCENT7) {
   background: @ROLLBACK; /* !CSS 3 */
   background: -moz-linear-gradient(-45deg, @COLOR1 @PERCENT1, @COLOR2 @PERCENT2, @COLOR3 @PERCENT3, @COLOR4 @PERCENT4, @COLOR5 @PERCENT5, @COLOR6 @PERCENT6, @COLOR7 @PERCENT7); /* FF 3.6+ */
@@ -223,15 +245,17 @@
   background: -webkit-gradient(linear, left top, right bottom, color-stop(@PERCENT1,@COLOR1), color-stop(@PERCENT2,@COLOR2), color-stop(@PERCENT3,@COLOR3), color-stop(@PERCENT4,@COLOR4), color-stop(@PERCENT5,@COLOR5), color-stop(@PERCENT6,@COLOR6), color-stop(@PERCENT7,@COLOR7)); /* Safari 3+ */
 }
 
-// .triangle(@orientation, @size, @color)
-//
-// Transform element to triangle.
-//
-// @orientation - Triangle orientation; available values: `top`, `left`, `right`, `bottom`.
-// @size - Any kind of size.
-// @color - Any kind of color.
-//
-// Style guide: mixins.example
+/*
+.triangle(@orientation, @size, @color)
+
+Transform element to triangle.
+
+@orientation - Triangle orientation; available values: `top`, `left`, `right`, `bottom`.
+@size - Any kind of size.
+@color - Any kind of color.
+
+Style guide: mixins.example
+*/
 .triangle(top, @size, @color) {
   height: 0;
   width: 0;
@@ -322,6 +346,16 @@
   background-size: @arguments;
 }
 
+/*
+    animation-name: example;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    animation: example 5s linear 2s infinite alternate;
+*/
 .addAnimation(...) {
   animation: @arguments;
   -moz-animation: @arguments; /* Firefox */
