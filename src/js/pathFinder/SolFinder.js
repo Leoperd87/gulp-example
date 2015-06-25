@@ -9,7 +9,6 @@ goog.require('app.pathFinder.MoveConsts');
 goog.require('app.pathFinder.MoveMap');
 goog.require('app.pathFinder.Poz');
 goog.require('app.pathFinder.Solution');
-goog.require('app.pathFinder.TimeConsts');
 goog.require('app.pathFinder.TransformVocabulary');
 
 goog.require('goog.dom.classlist');

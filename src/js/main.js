@@ -1,5 +1,6 @@
 goog.provide('app.main');
 
+goog.require('co.nst');
 goog.require('cssVocabulary');
 goog.require('goog.soy');
 goog.require('goog.array');
@@ -13,8 +14,7 @@ goog.require('app.pathFinder.CoordTransformMatrix');
 goog.require('app.pathFinder.Team');
 goog.require('app.pathFinder.UIMap');
 
-var lineLength = 7,
-  rowCound = 10,
+var rowCound = 10,
   size = 50,
   mapAsString = ([
     '0121200',

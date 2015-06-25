@@ -2,23 +2,21 @@
  * Created by fima on 15.05.15.
  */
 
-var gulp = require('gulp');
-
-var mkdirp = require('mkdirp');
-var less = require('gulp-less');
-var minifyCSS = require('gulp-minify-css');
-var gulpClosureCSSRenamer = require('gulp-closure-css-renamer');
-var del = require('del');
-var soynode = require('gulp-soynode');
-var closureCompiler = require('gulp-closure-compiler');
-var gulpif = require('gulp-if');
-var sprity = require('sprity');
-var jsdoc = require('gulp-jsdoc');
-var preprocess = require('gulp-preprocess');
-var exec = require('child_process').exec;
-var child;
-
-var defineConfig = require('./src/cfg/config.json');
+var gulp = require('gulp'),
+  mkdirp = require('mkdirp'),
+  less = require('gulp-less'),
+  minifyCSS = require('gulp-minify-css'),
+  gulpClosureCSSRenamer = require('gulp-closure-css-renamer'),
+  del = require('del'),
+  soynode = require('gulp-soynode'),
+  closureCompiler = require('gulp-closure-compiler'),
+  gulpif = require('gulp-if'),
+  sprity = require('sprity'),
+  jsdoc = require('gulp-jsdoc'),
+  preprocess = require('gulp-preprocess'),
+  exec = require('child_process').exec,
+  child,
+  defineConfig = require('./src/cfg/config.json');
 
 gulp.task('clean', function() {
   del(['tmp', 'target', 'doc'], function(err, deletedFiles) {
@@ -117,15 +115,17 @@ gulp.task('jsdoc', function() {
 });
 
 gulp.task('prepareStyleDoc', ['copyLess', 'sprites'], function(cb) {
-  child = exec('kss-node -c kss-config.json', function(error, stdout, stderr) {
+  child = exec('kss-node -c kss-config.json', function() {
     cb();
   });
 });
 
-gulp.task('doc', ['jsdoc', 'prepareStyleDoc'], function() {
-  gulp.src('./target/images/**/*')
+gulp.task('copyImagesToStyleGuide', function() {
+  return gulp.src('./target/images/**/*')
     .pipe(gulp.dest('./doc/styles/public/images'));
+});
 
+gulp.task('doc', ['jsdoc', 'prepareStyleDoc', 'copyImagesToStyleGuide'], function() {
   return gulp.src('./tmp/less/styles.less')
     .pipe(less())
     .pipe(minifyCSS())

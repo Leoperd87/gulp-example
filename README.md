@@ -28,3 +28,17 @@ gulp clean
 ```bash
 gulp doc
 ```
+
+## Map data
+
+### Isometric cartesian coordinate system directions
+    __1
+    _8_2
+    7___3
+    _6_4
+    __5
+
+### Classic cartesian coordinate system directions
+    1_2_3
+    8___4
+    7_6_5

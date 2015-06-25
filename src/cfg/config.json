@@ -1,6 +1,9 @@
 {
   "//": "Move time in seconds",
-  "moveTime": "0.5",
+  "moveTime": 0.5,
   "//": "Rotate time in seconds",
-  "rotateTime": "0.3"
+  "rotateTime": 0.3,
+  "//": "Map coll count",
+  "lineLength": 7,
+  "//": ""
 }
