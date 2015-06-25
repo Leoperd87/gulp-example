@@ -15,7 +15,6 @@ goog.require('app.pathFinder.Team');
 goog.require('app.pathFinder.UIMap');
 
 var rowCound = 10,
-  size = 50,
   mapAsString = ([
     '0121200',
     '1030200',
@@ -42,7 +41,7 @@ var rowCound = 10,
 
 app.pathFinder.CoordTransformMatrix.getInstance().init(rowCound, lineLength, mapAsString);
 app.pathFinder.Team.getInstance().init(hPos);
-app.pathFinder.UIMap.getInstance().initMap(size);
+app.pathFinder.UIMap.getInstance().initMap();
 app.pathFinder.Team.getInstance().calculateVisibility();
 var calc = new app.pathFinder.SolFinder(app.pathFinder.CoordTransformMatrix.getInstance().toArray());
 
