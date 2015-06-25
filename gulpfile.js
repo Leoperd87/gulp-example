@@ -14,8 +14,11 @@ var closureCompiler = require('gulp-closure-compiler');
 var gulpif = require('gulp-if');
 var sprity = require('sprity');
 var jsdoc = require('gulp-jsdoc');
+var preprocess = require('gulp-preprocess');
 var exec = require('child_process').exec;
 var child;
+
+var defineConfig = require('./src/cfg/config.json');
 
 gulp.task('clean', function() {
   del(['tmp', 'target', 'doc'], function(err, deletedFiles) {
@@ -24,7 +27,8 @@ gulp.task('clean', function() {
 });
 
 gulp.task('copyLess', function() {
-  return gulp.src('./src/less/**/*')
+  return gulp.src(['./src/less/**/*'])
+    .pipe(preprocess({context: defineConfig}))
     .pipe(gulp.dest('./tmp/less'));
 });
 
@@ -51,9 +55,8 @@ gulp.task('soy', function() {
     .pipe(gulp.dest('./tmp/soy'));
 });
 
-gulp.task('closure', ['sprites', 'less', 'soy'], function() {
+gulp.task('closure', ['sprites', 'less', 'soy', 'execPreprocessorInJavaScript'], function() {
   gulp.src([
-    './src/js/**/*.js',
     './tmp/js/**/*.js',
     './tmp/soy/**/*.js',
     './bower_components/closure-library/closure/goog/**/*.js',
@@ -127,6 +130,12 @@ gulp.task('doc', ['jsdoc', 'prepareStyleDoc'], function() {
     .pipe(less())
     .pipe(minifyCSS())
     .pipe(gulp.dest('./doc/styles/public/'));
+});
+
+gulp.task('execPreprocessorInJavaScript', function() {
+  return gulp.src(['./src/js/**/*.js'])
+    .pipe(preprocess({context: defineConfig}))
+    .pipe(gulp.dest('./tmp/js'));
 });
 
 gulp.task('default', ['copy', 'closure']);

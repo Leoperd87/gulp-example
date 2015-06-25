@@ -4,6 +4,6 @@
 
 goog.provide('app.pathFinder.TimeConsts');
 
-var rotateTime = 0.3,
-  moveTime = 0.5,
+var rotateTime = /* @echo moveTime *//* @exclude */1/* @endexclude */,
+  moveTime = /* @echo rotateTime *//* @exclude */1/* @endexclude */,
   moveDiagonalTime = +Math.sqrt(2*moveTime*moveTime).toFixed(2);

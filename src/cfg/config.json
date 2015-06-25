@@ -1,0 +1,6 @@
+{
+  "//": "Move time in seconds",
+  "moveTime": "0.5",
+  "//": "Rotate time in seconds",
+  "rotateTime": "0.3"
+}
