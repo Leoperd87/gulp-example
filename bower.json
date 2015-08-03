@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "closure-library": "https://github.com/google/closure-library.git",
-    "compiler-latest": "http://dl.google.com/closure-compiler/compiler-latest.zip",
+    "compiler-latest": "https://dl.google.com/closure-compiler/compiler-latest.zip",
     "closure-templates": "https://github.com/Medium/closure-templates.git#~20141017.0.1"
   }
 }
