@@ -20,13 +20,8 @@ app.pathFinder.UIMap = function() {
 goog.inherits(app.pathFinder.UIMap, goog.ui.Component);
 goog.addSingletonGetter(app.pathFinder.UIMap);
 
-app.pathFinder.UIMap.prototype.initMap = function(size) {
-  var hip = Math.sqrt(Math.pow(size, 2) + Math.pow(size, 2));
-
-  var style = goog.dom.createDom('style', null, ([
-    '.' + goog.getCssName('map-holder') + '{',
-    'width:' + Math.round(hip * (lineLength + 0.5)) + 'px;',
-    '} ',
+app.pathFinder.UIMap.prototype.initMap = function() {
+  var style = goog.dom.createDom('style', null, ([ // todo move it to less
     '.' + goog.getCssName('map-holder') + '>li:nth-child(' + (lineLength * 2) + 'n+' + (lineLength + 1) + '){',
     'margin: -14px 0px 0px 55px;',
     '}',

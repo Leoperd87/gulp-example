@@ -6,7 +6,6 @@
 goog.provide('app.pathFinder.Solution');
 
 goog.require('app.pathFinder.MoveConsts');
-goog.require('app.pathFinder.TimeConsts');
 goog.require('app.pathFinder.TransformVocabulary');
 
 /**
